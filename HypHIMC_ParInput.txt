@@ -1,0 +1,238 @@
+# The parameters input file for HypHiMC programm
+# please use "#" as a beginning of the comment line
+
+#--------------------------------------------------------------------
+#Beam_* section
+#Beam_Type alpha
+#Beam_KineticEnergy 8.0 GeV
+Beam_Type proton
+#Beam_Type proton
+#Beam_KineticEnergy 1.7 GeV
+Beam_KineticEnergy 2.0 GeV 
+Beam_SpotSizeSigma 1.0 cm
+Beam_MomentumDirectionX 0.0
+Beam_MomentumDirectionY 0.0
+Beam_MomentumDirectionZ 1.0
+
+#--------------------------------------------------------------------
+# CutValue_* section
+CutValue_Default 10.00 mm
+CutValue_Target  10.10 mm
+#CutValue_Plastic 0.10 mm
+CutValue_Plastic 50.00 mm
+
+#--------------------------------------------------------------------
+# HyperNuclei_* section
+HyperNuclei_H4L_T12      0.194 ns
+HyperNuclei_H4L_br_mode1 0
+HyperNuclei_H4L_br_mode2 1
+HyperNuclei_H4L_br_mode3 0
+HyperNuclei_H4L_br_mode4 0
+# H3L
+#HyperNuclei_H3L_T12      0.246 ns
+HyperNuclei_H3L_T12      0.2632 ns
+HyperNuclei_H3L_br_mode1 1
+HyperNuclei_H3L_br_mode2 0
+HyperNuclei_H3L_br_mode3 0
+HyperNuclei_H3L_br_mode4 0
+HyperNuclei_H3L_br_mode5 0
+# He4L
+HyperNuclei_He4L_T12      0.256 ns
+HyperNuclei_He4L_br_mode1 0.25
+HyperNuclei_He4L_br_mode2 0.25
+HyperNuclei_He4L_br_mode3 0.25
+HyperNuclei_He4L_br_mode4 0.25
+# He5L
+HyperNuclei_He5L_T12      0.256 ns
+HyperNuclei_He5L_br_mode1 1
+HyperNuclei_He5L_br_mode2 0
+
+#--------------------------------------------------------------------
+# Geometry_* section
+# World .............................................................
+Geometry_WorldMaterial Air  # current chois: Air, Vacum
+Geometry_WorldDimX     5 m
+Geometry_WorldDimY     5 m
+Geometry_WorldDimZ    10 m
+# SKS magnet field
+Geometry_SKSField1 0.8 
+Geometry_SKSField2 14.8
+
+# Target ............................................................
+Geometry_TargetMaterial C
+Geometry_TargetThickness 4. cm
+Geometry_TargetHeight    4. cm
+Geometry_TargetLength    4. cm
+Geometry_TargetPosX      5.  cm
+Geometry_TargetPosY      0.0  cm
+Geometry_TargetPosZ      47.4  cm #%<---pre
+#Geometry_TargetPosZ     -4.0  cm #08Oct2012
+# Fiber detectors ...................................................
+Geometry_Fibers_Nlayers         4
+Geometry_Fibers_PlainsOfset     0.5   cm  # distance between layers of X and Y plains (do not include detector thickness!!!)
+Geometry_Fibers_ActiveRadius    0.3652 mm # Before we were using 0.410 (mm)
+Geometry_Fibers_ExternalRadius  0.415 mm
+Geometry_Fibers_ActiveLength   30.0  cm
+Geometry_Fibers_tilt_angel_TR  45   degree
+# TR1  (x,y)=(13.14656,7.51232) 
+#Geometry_Fibers_z_TR1          40.0  cm
+#Geometry_Fibers_x_minus_TR1    -4.57328  cm  # -4.6
+#Geometry_Fibers_x_plus_TR1      8.57328  cm  #  8.6
+#Geometry_Fibers_y_minus_TR1    -3.75616  cm  # -3.8
+#Geometry_Fibers_y_plus_TR1      3.75616  cm  #  3.8
+Geometry_Fibers_z_TR1          41.1154  cm
+Geometry_Fibers_x_minus_TR1    -4.52  cm  # -4.6
+Geometry_Fibers_x_plus_TR1      8.72  cm  #  8.6
+Geometry_Fibers_y_minus_TR1    -3.788  cm  # -3.8
+Geometry_Fibers_y_plus_TR1      3.788  cm  #  3.8
+# TR2  (x,y)=(24.41504, 11.26848)
+#Geometry_Fibers_z_TR2          70.0  cm
+#Geometry_Fibers_x_minus_TR2    -8.0  cm	
+#Geometry_Fibers_x_plus_TR2     16.41504  cm	# 16.5		
+#Geometry_Fibers_y_minus_TR2    -5.63424  cm	# -5.65
+#Geometry_Fibers_y_plus_TR2      5.63434  cm	#  5.65
+Geometry_Fibers_z_TR2          72.1145  cm
+Geometry_Fibers_x_minus_TR2    -8.034  cm	
+Geometry_Fibers_x_plus_TR2     16.534  cm	# 16.5		
+Geometry_Fibers_y_minus_TR2    -5.676  cm	# -5.65
+Geometry_Fibers_y_plus_TR2      5.676  cm	#  5.65
+# Alladin Magnet ....................................................
+Geometry_Alladin_Field         -0.75  tesla
+# Alladin TOF wall ..................................................
+#Geometry_AlladinTOF_PosX    -1.35 m
+#Geometry_AlladinTOF_PosX    -1.59 m <---pre
+Geometry_AlladinTOF_PosX    -2.3553 m
+Geometry_AlladinTOF_PosY     0.0  m
+#Geometry_AlladinTOF_PosZ     5.50 m <---pre 
+Geometry_AlladinTOF_PosZ     5.1559 m #need rotation
+# TOF Plus wall ..................................................
+#Geometry_TOFPlus_PosX    0.2775 m
+#Geometry_TOFPlus_PosX    0.2923 m <---pre
+Geometry_TOFPlus_PosX     0.2947 m #08Oct2012
+#Geometry_TOFPlus_PosX    0.3475 m
+#Geometry_TOFPlus_PosX    0.350 m
+#Geometry_TOFPlus_PosX    0.33 m
+Geometry_TOFPlus_PosY     0.0  m
+#Geometry_TOFPlus_PosZ    4.849 m <---pre
+Geometry_TOFPlus_PosZ     4.762 m #08Oct2012
+
+
+#--------------------------------------------------------------------
+# Universal Trackers
+# Detectors_UTracker Material DimX DimY DimZ PosX PosY PosZ RotX RotY RotZ
+# All positions and dimensions should have DIMENSION
+# Detectors_UTracker C 50.0 cm 50.0 cm 5.0 cm 40.0 cm 0.0 cm 7.35 m
+#                    0.0 degree 0.0 degree 0.0 rad
+# current materials Air Sci Vacum
+
+
+#----------------------comment 08Oct2012------------------------------
+## front of postive TOF
+#Detectors_UTracker Air	
+#		   0.96 m 1.0 m 2.0 cm
+#		   0.2923 m 0.0 m 4.749 m
+#		   0.0 degree 0.0 degree 0.0 degree
+#
+## UT1 @ TR1 
+#Detectors_UTracker Air
+#                   2.0 m 2.0 m 0.5 cm
+#		   4.25 cm 0.0 cm 48. cm
+#		   0.0 degree 0.0 degree 0.0 degree
+## Chamber between TR1 & TR2
+#Detectors_UTracker Air
+#                   24. cm 15. cm 1.14 cm
+#		   4.5 cm 0.0 cm 560.072 mm
+#		   0.0 degree 0.0 degree 0.0 degree
+#
+## Chamber front of negative 
+#Detectors_UTracker Air
+#                   1.2 m 90. cm  0.68 cm
+#		   -31.0 cm 0.0 cm 3.519 m
+#		   0.0 degree 0.0 degree 0.0 degree
+## UT4 @ TOF-wall
+#Detectors_UTracker Sci
+#                   1.87 m 1.47 m 2.0 cm
+#		   -1.679    m 0.0 cm 4.864 m
+#		   0.0 degree 0.0 degree 0.0 degree
+#---------------------------------------------------------------------
+
+
+
+# Chamber between TR1 & TR2 (BDC xx'uu'vv')
+# UT0 @ BDC x
+Detectors_UTracker Air
+                   24. cm 14. cm 0.5 cm #0.267 cm
+		   46.2930 mm -3.9985 mm 546.7387 mm
+		   0.0 degree 0.0 degree 0.0 degree
+# UT1 @ BDC x'
+Detectors_UTracker Air
+                   24. cm 14. cm 0.5 cm
+		   46.2930 mm -3.9985 mm 541.4053 mm
+		   0.0 degree 0.0 degree 0.0 degree
+# UT2 @ BDC u
+Detectors_UTracker Air
+                   24. cm 14. cm 0.5 cm
+		   46.2930 mm -3.9985 mm 562.7387 mm
+		   0.0 degree 0.0 degree 0.0 degree
+# UT3 @ BDC u'
+Detectors_UTracker Air
+                   24. cm 14. cm 0.5 cm
+		   46.2930 mm -3.9985 mm 557.4053 mm
+		   0.0 degree 0.0 degree 0.0 degree
+# UT4 @ BDC v
+Detectors_UTracker Air
+                   24. cm 14. cm 0.5 cm
+		   46.2930 mm -3.9985 mm 573.4053 mm
+		   0.0 degree 0.0 degree 0.0 degree
+# UT5 @ BDC v'
+Detectors_UTracker Air
+                   24. cm 14. cm 0.5 cm
+		   46.2930 mm -3.9985 mm 578.7387 mm
+		   0.0 degree 0.0 degree 0.0 degree
+
+
+
+# Chamber behind the magnet (SDC xx'yy'u)
+# UT6 @ SDC x
+Detectors_UTracker Air
+                   1.1865 m 89.85 cm  0.70 cm
+		   -31.5 cm -2.395 cm 3.5560 m
+		   0.0 degree 0.0 degree 0.0 degree
+# UT7 @ SDC x'
+Detectors_UTracker Air
+                   1.1865 m 89.85 cm  0.70 cm
+		   -31.5 cm -2.395 cm 3.5482 m
+		   0.0 degree 0.0 degree 0.0 degree
+# UT8 @ SDC y
+Detectors_UTracker Air
+                   1.1865 m 89.85 cm  0.70 cm
+		   -31.5 cm -2.395 cm 3.5288 m
+		   0.0 degree 0.0 degree 0.0 degree
+# UT9 @ SDC y'
+Detectors_UTracker Air
+                   1.1865 m 89.85 cm  0.70 cm
+		   -31.5 cm -2.395 cm 3.5210 m
+		   0.0 degree 0.0 degree 0.0 degree
+# UT10 @ SDC u
+Detectors_UTracker Air
+                   1.1865 m 89.85 cm  0.70 cm
+		   -31.5 cm -2.395 cm 3.4585 m
+		   0.0 degree 0.0 degree 0.0 degree
+
+
+
+# UT11 @ TFW 
+# rotation in "THypHi_DetectorConstruction.cc"
+Detectors_UTracker Sci
+                   1.89 m 1.47 m 0.5 cm
+		   -1.6793 m 0.0 cm 4.8684 m
+		   0.0 degree 0.0 degree 0.0 degree 
+
+
+
+# UT12 @ front of TOF+ (only for 20 bars)
+Detectors_UTracker Air
+		   0.615 m 1.0 m 1.0 cm
+		   0.1147 m 0.0 cm 4.740 m
+		   0.0 degree 0.0 degree 0.0 degree
+
