@@ -23,13 +23,13 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-// $Id: exampleB4a.cc 75215 2013-10-29 16:07:06Z gcosmo $
+// $Id: exampleHypHIFrs.cc 75215 2013-10-29 16:07:06Z gcosmo $
 //
-/// \file exampleB4a.cc
-/// \brief Main program of the B4a example
+/// \file exampleHypHIFrs.cc
+/// \brief Main program of the HypHIFrs example
 
-#include "B4DetectorConstruction.hh"
-#include "B4aActionInitialization.hh"
+#include "HypHIFrsDetectorConstruction.hh"
+#include "HypHIFrsActionInitialization.hh"
 
 #ifdef G4MULTITHREADED
 #include "G4MTRunManager.hh"
@@ -61,7 +61,7 @@ namespace
   void PrintUsage() 
   {
     G4cerr << " Usage: " << G4endl;
-    G4cerr << " exampleB4a [-m macro ] [-u UIsession] [-t nThreads]" << G4endl;
+    G4cerr << " exampleHypHIFrs [-m macro ] [-u UIsession] [-t nThreads]" << G4endl;
     G4cerr << "   note: -t option is available only for multi-threaded mode."
 	   << G4endl;
   }
@@ -190,13 +190,13 @@ int main(int argc,char** argv)
   //
   THypHi_Par* ParameterSet  = Parser.GetParameter();
   
-  B4DetectorConstruction* detConstruction = new B4DetectorConstruction(*ParameterSet);
+  HypHIFrsDetectorConstruction* detConstruction = new HypHIFrsDetectorConstruction(*ParameterSet);
   runManager->SetUserInitialization(detConstruction);
 
   G4VModularPhysicsList* physicsList = new FTFP_BERT;
   runManager->SetUserInitialization(physicsList);
     
-  B4aActionInitialization* actionInitialization = new B4aActionInitialization(detConstruction,*ParameterSet,OutputFileName);
+  HypHIFrsActionInitialization* actionInitialization = new HypHIFrsActionInitialization(detConstruction,*ParameterSet,OutputFileName);
   runManager->SetUserInitialization(actionInitialization);
 
   // Initialize G4 kernel

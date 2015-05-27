@@ -36,7 +36,7 @@
 #include "THypHi_Par.hh"
 
 
-class B4DetectorConstruction;
+class HypHIFrsDetectorConstruction;
 class THypHi_Par;
 /// Action initialization class.
 ///
@@ -44,14 +44,14 @@ class THypHi_Par;
 class HypHIFrsActionInitialization : public G4VUserActionInitialization
 {
 public:
-  HypHIFrsActionInitialization(B4DetectorConstruction*, const THypHi_Par&, const G4String&, bool = false);
+  HypHIFrsActionInitialization(HypHIFrsDetectorConstruction*, const THypHi_Par&, const G4String&, bool = false);
   virtual ~HypHIFrsActionInitialization();
   
   virtual void BuildForMaster() const;
   virtual void Build() const;
   
 private:
-  B4DetectorConstruction* fDetConstruction;
+  HypHIFrsDetectorConstruction* fDetConstruction;
   const THypHi_Par& Par;
   G4String OutputFile;
   bool InputCIN;
