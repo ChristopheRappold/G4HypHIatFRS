@@ -41,7 +41,7 @@
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-HypHIFrsEventAction::HypHIFrsEventAction(const std::vector<G4String>& ) : G4UserEventAction()
+HypHIFrsEventAction::HypHIFrsEventAction(const std::vector<G4String>& name) : G4UserEventAction(),nameDetector(name)
 {
 
   // G4SDManager *SDman = G4SDManager::GetSDMpointer();  
@@ -69,12 +69,65 @@ void HypHIFrsEventAction::BeginOfEventAction(const G4Event* /*event*/)
 {  
   // for(auto&  array : list_Arrays)
   //   array.Clear("C");
+
+  if(HCID.size()!=nameDetector)
+    {
+      G4SDManager* sdManager = G4SDManager::GetSDMpointer();
+      for(auto& name : nameDetector)
+	{
+	  G4String tempName(name);
+	  tempName+="/UTrackerColl";
+	  HCID.push_back(sdManager->GetCollectionID(tempName);
+	}
+    }
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 void HypHIFrsEventAction::EndOfEventAction(const G4Event* event)
 {
+  G4HCofThisEvent* hce = event->GetHCofThisEvent();
+  if (!hce) 
+    {
+      G4ExceptionDescription msg;
+      msg << "No hits collection of this event found." << G4endl; 
+      G4Exception("B5EventAction::EndOfEventAction()","B5Code001", JustWarning, msg);
+      return;
+    }   
+
+
+  for( auto idCol : HCID)
+    {
+      UTrackerHitsCollection* TempCol = dynamic_cast<UTrackerHitsCollection*>(hce->GetHC(HCID));
+      if(TempCol != nullptr)
+	{
+	  G4int nhits = TempCol->entries();
+	  for(G4int ihit = 0 ; ihit<nhits;++ihit)
+	    {
+	      HypHIFrsUTrackerHit* TempHit = (*TempCol)[ihit];
+	      analysisManager->FillNtupleIColumn(0, event->GetEventID());
+	      analysisManager->FillNtupleIColumn(1, TempHit->LayerID);
+	      analysisManager->FillNtupleIColumn(2, ihit);
+	      analysisManager->FillNtupleIColumn(3, TempHit->TrackID);
+	      analysisManager->FillNtupleDColumn(4, TempHit->HitPosX);
+	      analysisManager->FillNtupleDColumn(5, TempHit->HitPosY);
+	      analysisManager->FillNtupleDColumn(6, TempHit->HitPosZ);
+	      analysisManager->FillNtupleDColumn(7, TempHit->MomX);
+	      analysisManager->FillNtupleDColumn(8, TempHit->MomY);
+	      analysisManager->FillNtupleDColumn(9, TempHit->MomZ);
+	      analysisManager->FillNtupleDColumn(10, 0.983);  
+	      analysisManager->AddNtupleRow();  
+	    }
+	}
+      else
+	{
+	  G4ExceptionDescription msg;
+	  msg << "Some of hits collections of this event not found." << G4endl; 
+	  G4Exception("B5EventAction::EndOfEventAction()","B5Code001", JustWarning, msg);
+	  return;
+	}
+    }
+
 
   // G4RunManager* run = G4RunManager::GetRunManager();
   // const HypHIFrsRunAction* UserRun = dynamic_cast<const HypHIFrsRunAction*>(run->GetUserRunAction());

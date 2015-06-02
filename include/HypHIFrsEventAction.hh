@@ -55,7 +55,12 @@ class HypHIFrsEventAction : public G4UserEventAction
   
   private:
   //std::vector<*> list_Arrays;
+
+  const std::vector<G4String>& nameDetector;
+  std::vector<int> HCID;
+
 };
+
 
                      
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

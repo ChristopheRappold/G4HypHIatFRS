@@ -49,9 +49,9 @@ HypHIFrsRunAction::HypHIFrsRunAction(const G4String& name, const std::vector<G4S
   // Create analysis manager
   // The choice of analysis technology is done via selectin of a namespace
   // in HypHIFrsAnalysis.hh
-
-  // G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
-  // G4cout << "Using " << analysisManager->GetType() << G4endl;
+  
+  G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
+  G4cout << "Using " << analysisManager->GetType() << G4endl;
 
   // // Create directories 
   // //analysisManager->SetHistoDirectoryName("histograms");
@@ -70,38 +70,47 @@ HypHIFrsRunAction::HypHIFrsRunAction(const G4String& name, const std::vector<G4S
 
   // // Creating ntuple
   // //
-  // analysisManager->CreateNtuple("HypHIFrs", "Edep and TrackL");
-  // analysisManager->CreateNtupleDColumn("Eabs");
-  // analysisManager->CreateNtupleDColumn("Egap");
-  // analysisManager->CreateNtupleDColumn("Labs");
-  // analysisManager->CreateNtupleDColumn("Lgap");
-  // analysisManager->FinishNtuple();
+  analysisManager->CreateNtuple("HypHIFrs", "Edep and TrackL");
+
+  analysisManager->CreateNtupleIColumn("EventID");
+  analysisManager->CreateNtupleIColumn("LayerID");
+  analysisManager->CreateNtupleIColumn("HitID");
+  analysisManager->CreateNtupleIColumn("TrackID");
+  analysisManager->CreateNtupleDColumn("posX");
+  analysisManager->CreateNtupleDColumn("posY");
+  analysisManager->CreateNtupleDColumn("posZ");
+  analysisManager->CreateNtupleDColumn("momX");
+  analysisManager->CreateNtupleDColumn("momY");
+  analysisManager->CreateNtupleDColumn("momZ");
+  analysisManager->CreateNtupleDColumn("mass");
+
+  analysisManager->FinishNtuple();
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-void HypHIFrsRunAction::Close()
-{
-  OutputFile->cd();
-  OutTree->Write();
-  OutputFile->Close();
-  OutputFile->Delete();
-  OutputFile=0;
-}
+// void HypHIFrsRunAction::Close()
+// {
+//   OutputFile->cd();
+//   OutTree->Write();
+//   OutputFile->Close();
+//   OutputFile->Delete();
+//   OutputFile=0;
+// }
 
-void HypHIFrsRunAction::Fill() const
-{
-  int ret = OutTree->Fill();
-  G4cout<<" Fill Tree "<<ret<<G4endl;
+// void HypHIFrsRunAction::Fill() const
+// {
+//   int ret = OutTree->Fill();
+//   G4cout<<" Fill Tree "<<ret<<G4endl;
 
-}
+// }
 
 HypHIFrsRunAction::~HypHIFrsRunAction()
 {
-  if(OutputFile!=nullptr)
-    Close();
-  
-  //delete G4AnalysisManager::Instance();  
+  // if(OutputFile!=nullptr)
+  //   Close();
+
+  delete G4AnalysisManager::Instance();  
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -112,22 +121,22 @@ void HypHIFrsRunAction::BeginOfRunAction(const G4Run* /*run*/)
   //G4RunManager::GetRunManager()->SetRandomNumberStore(true);
   
   // Get analysis manager
-  //G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
+  G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
 
   // Open an output file
   //
-  //G4String fileName = "HypHIFrs";
-  //analysisManager->OpenFile(fileName);
+  G4String fileName = "HypHIFrsOut";
+  analysisManager->OpenFile(fileName);
 
-  G4SDManager *SDman = G4SDManager::GetSDMpointer();
+  // G4SDManager *SDman = G4SDManager::GetSDMpointer();
 
-  OutputFile = new TFile(OutputFileName,"RECREATE");
-  OutputFile->cd();
+  // OutputFile = new TFile(OutputFileName,"RECREATE");
+  // OutputFile->cd();
 
-  OutTree = new TTree("G4Tree","Geant4 Simulation Output Tree");
+  // OutTree = new TTree("G4Tree","Geant4 Simulation Output Tree");
   
-  h1 = new TH1F("h_field","h_field",1000,0,1000);
-  h1->SetDirectory(OutputFile);
+  // h1 = new TH1F("h_field","h_field",1000,0,1000);
+  // h1->SetDirectory(OutputFile);
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -138,7 +147,9 @@ void HypHIFrsRunAction::EndOfRunAction(const G4Run* /*run*/)
   G4cout<<" End Run : Closing root file ";
   // print histogram statistics
   //
-  // G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
+  
+
+  G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
   // if ( analysisManager->GetH1(1) ) {
   //   G4cout << "\n ----> print histograms statistic ";
   //   if(isMaster) {
@@ -171,10 +182,10 @@ void HypHIFrsRunAction::EndOfRunAction(const G4Run* /*run*/)
 
   // // save histograms & ntuple
   // //
-  // analysisManager->Write();
-  // analysisManager->CloseFile();
+  analysisManager->Write();
+  analysisManager->CloseFile();
 
-  Close();
+  //Close();
   
   G4cout<<" done !"<<G4endl;
 
