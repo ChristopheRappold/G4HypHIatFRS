@@ -68,7 +68,7 @@ const HypHIFrsUTrackerHit& HypHIFrsUTrackerHit::operator=(const HypHIFrsUTracker
   return *this;
 }
 
-int HypHIFrsUTrackerHit::operator==(const HypHIFrsUTrackerHit& hit)
+int HypHIFrsUTrackerHit::operator==(const HypHIFrsUTrackerHit& hit) const
 {
   return LayerID==hit.LayerID && TrackID==hit.TrackID;
 }

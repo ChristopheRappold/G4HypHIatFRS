@@ -10,6 +10,7 @@
 #include "G4VTouchable.hh"
 #include "G4VSolid.hh"
 #include "G4Material.hh"
+#include "G4SDManager.hh"
 
 
 THypHi_SD_UTracker::THypHi_SD_UTracker(const G4String& name, const G4String& nameVolPhys):  G4VSensitiveDetector(name),fHitsCollection(nullptr),fHCID(-1)
@@ -42,7 +43,7 @@ G4bool THypHi_SD_UTracker::ProcessHits(G4Step*aStep, G4TouchableHistory*)
   
   G4double energ_depos = aStep->GetTotalEnergyDeposit();
   //
-  G4cout<<" Current SD :"<<nameDetector<<" "<<energ_depos<<G4endl;
+  G4cout<<" Current SD :"<<SensitiveDetectorName<<" "<<energ_depos<<G4endl;
   if(energ_depos < 1e-4) 
     return true;
   
@@ -53,7 +54,7 @@ G4bool THypHi_SD_UTracker::ProcessHits(G4Step*aStep, G4TouchableHistory*)
     return true;
 
   int IdHit = -1;
-  Int_t CurrentTrack = aStep->GetTrack()->GetTrackID();
+  int CurrentTrack = aStep->GetTrack()->GetTrackID();
   //for(int i=(int)Event->id.size()-1;i>-1;i--)
   
   G4cout<<" --> Track#"<<CurrentTrack<<G4endl;
@@ -69,7 +70,7 @@ G4bool THypHi_SD_UTracker::ProcessHits(G4Step*aStep, G4TouchableHistory*)
     {
       G4cout<<" NewHit !"<<G4endl;
       IdHit = fHitsCollection->GetSize();
-      HypHIFrsUTrackerHit* newHit = HypHIFrsUTrackerHit(fHCID);
+      HypHIFrsUTrackerHit* newHit = new HypHIFrsUTrackerHit(fHCID);
 
       newHit->Pname = aStep->GetTrack()->GetDefinition()->GetPDGEncoding();
       newHit->TrackID = aStep->GetTrack()->GetTrackID();
@@ -87,12 +88,12 @@ G4bool THypHi_SD_UTracker::ProcessHits(G4Step*aStep, G4TouchableHistory*)
 
       mapTrackID_Hits.insert(std::pair<int,int>(CurrentTrack,IdHit));
 
-      fHitsCollection->insert(newHits);
+      fHitsCollection->insert(newHit);
     }
   else
     {
       G4cout<<" Hit#"<<IdHit<<G4endl;
-      HypHIFrsUTrackerHit* CurrentHit =dynamic_cast<HypHIFrsUTrackerHit*>(Hits->GetHit(IdHit));
+      HypHIFrsUTrackerHit* CurrentHit =dynamic_cast<HypHIFrsUTrackerHit*>(fHitsCollection->GetHit(IdHit));
       
       CurrentHit->Energy += energ_depos;
       CurrentHit->ExitPosX = aStep->GetTrack()->GetPosition().x();

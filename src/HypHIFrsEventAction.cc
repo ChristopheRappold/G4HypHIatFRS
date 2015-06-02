@@ -32,9 +32,13 @@
 #include "HypHIFrsRunAction.hh"
 #include "HypHIFrsAnalysis.hh"
 
+#include "G4SDManager.hh"
 #include "G4RunManager.hh"
 #include "G4Event.hh"
 #include "G4UnitsTable.hh"
+
+#include "HypHIFrsUTrackerHit.hh"
+#include "THypHi_SensetiveD.hh"
 
 #include "Randomize.hh"
 #include <iomanip>
@@ -70,14 +74,14 @@ void HypHIFrsEventAction::BeginOfEventAction(const G4Event* /*event*/)
   // for(auto&  array : list_Arrays)
   //   array.Clear("C");
 
-  if(HCID.size()!=nameDetector)
+  if(HCID.size()!=nameDetector.size())
     {
       G4SDManager* sdManager = G4SDManager::GetSDMpointer();
       for(auto& name : nameDetector)
 	{
 	  G4String tempName(name);
 	  tempName+="/UTrackerColl";
-	  HCID.push_back(sdManager->GetCollectionID(tempName);
+	  HCID.push_back(sdManager->GetCollectionID(tempName));
 	}
     }
 }
@@ -96,9 +100,11 @@ void HypHIFrsEventAction::EndOfEventAction(const G4Event* event)
     }   
 
 
+  G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
+
   for( auto idCol : HCID)
     {
-      UTrackerHitsCollection* TempCol = dynamic_cast<UTrackerHitsCollection*>(hce->GetHC(HCID));
+      HypHIFrsUTrackerHitsCollection* TempCol = dynamic_cast<HypHIFrsUTrackerHitsCollection*>(hce->GetHC(idCol));
       if(TempCol != nullptr)
 	{
 	  G4int nhits = TempCol->entries();

@@ -29,7 +29,7 @@
 /// \brief Implementation of the HypHIFrsRunAction class
 
 #include "HypHIFrsRunAction.hh"
-//#include "HypHIFrsAnalysis.hh"
+#include "HypHIFrsAnalysis.hh"
 
 #include "G4Run.hh"
 #include "G4RunManager.hh"

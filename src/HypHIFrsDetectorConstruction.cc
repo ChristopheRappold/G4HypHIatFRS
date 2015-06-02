@@ -252,7 +252,7 @@ void HypHIFrsDetectorConstruction::ConstructSDandField()
     {
       G4LogicalVolume* UTracker = FindVolume(CurrentName);
       THypHi_SD_UTracker* SD = new THypHi_SD_UTracker(CurrentName,CurrentName);
-      SD->Init();
+      //SD->Init();
       SDman->AddNewDetector(SD);
       UTracker->SetSensitiveDetector(SD);
     }  

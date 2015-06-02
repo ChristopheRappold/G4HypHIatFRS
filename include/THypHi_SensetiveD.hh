@@ -19,7 +19,7 @@ public:
   virtual void Initialize(G4HCofThisEvent*HCE);
   //void EndOfEvent(G4HCofThisEvent*);
   
-  UTrackerHitsCollection* fHitsCollection;
+  HypHIFrsUTrackerHitsCollection* fHitsCollection;
   G4int fHCID;
 
   std::map<int,int> mapTrackID_Hits;
