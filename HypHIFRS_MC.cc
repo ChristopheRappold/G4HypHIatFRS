@@ -40,6 +40,8 @@
 #include "G4UImanager.hh"
 #include "G4UIcommand.hh"
 #include "FTFP_BERT.hh"
+#include "G4StepLimiterPhysics.hh"
+
 
 #include "Randomize.hh"
 
@@ -194,6 +196,7 @@ int main(int argc,char** argv)
   runManager->SetUserInitialization(detConstruction);
 
   G4VModularPhysicsList* physicsList = new FTFP_BERT;
+  physicsList->RegisterPhysics(new G4StepLimiterPhysics());
   runManager->SetUserInitialization(physicsList);
     
   HypHIFrsActionInitialization* actionInitialization = new HypHIFrsActionInitialization(detConstruction,*ParameterSet,OutputFileName);
