@@ -126,15 +126,6 @@ void HypHIFrsRunAction::BeginOfRunAction(const G4Run* /*run*/)
 
   OutTree = new TTree("G4Tree","Geant4 Simulation Output Tree");
   
-  for(const auto& nameDetector : NameDetectorsSD)
-    {
-      THypHi_SD_UTracker* tempD = dynamic_cast<THypHi_SD_UTracker*>(SDman->FindSensitiveDetector(nameDetector));
-      TClonesArray* tempArray = tempD->Hits;
-      
-      OutTree->Branch(nameDetector,&tempArray,32000,2);
-      tempD->AttachedToTree=true;
-    }
-
   h1 = new TH1F("h_field","h_field",1000,0,1000);
   h1->SetDirectory(OutputFile);
 }

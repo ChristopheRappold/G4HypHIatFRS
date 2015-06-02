@@ -76,9 +76,9 @@ void HypHIFrsEventAction::BeginOfEventAction(const G4Event* /*event*/)
 void HypHIFrsEventAction::EndOfEventAction(const G4Event* event)
 {
 
-  G4RunManager* run = G4RunManager::GetRunManager();
-  const HypHIFrsRunAction* UserRun = dynamic_cast<const HypHIFrsRunAction*>(run->GetUserRunAction());
-  UserRun->Fill();
+  // G4RunManager* run = G4RunManager::GetRunManager();
+  // const HypHIFrsRunAction* UserRun = dynamic_cast<const HypHIFrsRunAction*>(run->GetUserRunAction());
+  // UserRun->Fill();
   // Accumulate statistics
   //
 
