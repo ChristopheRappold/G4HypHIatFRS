@@ -17,8 +17,9 @@ public:
   
   G4bool ProcessHits(G4Step*aStep,G4TouchableHistory* rohist);
   virtual void Initialize(G4HCofThisEvent*HCE);
-  //void EndOfEvent(G4HCofThisEvent*);
-  
+  virtual void EndOfEvent(G4HCofThisEvent*);
+  virtual void clear();
+
   HypHIFrsUTrackerHitsCollection* fHitsCollection;
   G4int fHCID;
 

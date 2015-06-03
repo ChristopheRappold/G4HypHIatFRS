@@ -62,12 +62,11 @@ void HypHIFrsActionInitialization::Build() const
 {
   SetUserAction(new HypHIFrsPrimaryGeneratorAction(Par,InputCIN));
 
-  
   SetUserAction(new HypHIFrsRunAction(OutputFile,fDetConstruction->NameDetectorsSD));
-
+  
   HypHIFrsEventAction* eventAction = new HypHIFrsEventAction(fDetConstruction->NameDetectorsSD);
   SetUserAction(eventAction);
-  SetUserAction(new HypHIFrsSteppingAction(fDetConstruction,eventAction));
+  //SetUserAction(new HypHIFrsSteppingAction(fDetConstruction,eventAction));
 }  
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

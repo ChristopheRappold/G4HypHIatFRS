@@ -75,6 +75,6 @@ void HypHIFrsMagneticField::GetFieldValue(const double Point[3],double *Bfield) 
   Bfield[1] = normalized ? B[1]*factor*kilogauss : B[1]*kilogauss;
   Bfield[2] = normalized ? B[2]*factor*kilogauss : B[2]*kilogauss;
   
-  G4cout<<"["<<pos[0]<<" "<<pos[1]<<" "<<pos[2]<<"] :"<<" "<<B[1]<<" / "<<Bfield[1]<<G4endl;
+  //G4cout<<"["<<pos[0]<<" "<<pos[1]<<" "<<pos[2]<<"] :"<<" "<<B[1]<<" / "<<Bfield[1]<<G4endl;
 
 }

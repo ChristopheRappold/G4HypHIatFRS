@@ -30,25 +30,33 @@ void THypHi_SD_UTracker::Initialize(G4HCofThisEvent* hce)
     fHCID = G4SDManager::GetSDMpointer()->GetCollectionID(fHitsCollection);
   
   hce->AddHitsCollection(fHCID,fHitsCollection);
+  if(mapTrackID_Hits.size()!=0)
+    mapTrackID_Hits.clear();
 }
 
-// void THypHi_SD_UTracker::EndOfEvent(G4HCofThisEvent*)
-// {
+void THypHi_SD_UTracker::clear()
+{
+  mapTrackID_Hits.clear();
+}
+
+
+void THypHi_SD_UTracker::EndOfEvent(G4HCofThisEvent*)
+{
 //   Hits->Clear("C");
-//   mapTrackID_Hits.clear();
-// }
+   mapTrackID_Hits.clear();
+}
 
 G4bool THypHi_SD_UTracker::ProcessHits(G4Step*aStep, G4TouchableHistory*)
 {
   
   G4double energ_depos = aStep->GetTotalEnergyDeposit();
   //
-  G4cout<<" Current SD :"<<SensitiveDetectorName<<" "<<energ_depos<<G4endl;
+  //G4cout<<" Current SD :"<<SensitiveDetectorName<<" "<<energ_depos<<G4endl;
   if(energ_depos < 1e-4) 
     return true;
   
   G4String PhysName (aStep->GetPreStepPoint()->GetPhysicalVolume()->GetName());
-  G4cout<<" ->"<<PhysName<<G4endl;
+  //G4cout<<" ->"<<PhysName<<G4endl;
   
   if(PhysName!=SensitiveDetectorName)
     return true;
@@ -57,18 +65,18 @@ G4bool THypHi_SD_UTracker::ProcessHits(G4Step*aStep, G4TouchableHistory*)
   int CurrentTrack = aStep->GetTrack()->GetTrackID();
   //for(int i=(int)Event->id.size()-1;i>-1;i--)
   
-  G4cout<<" --> Track#"<<CurrentTrack<<G4endl;
+  //G4cout<<" --> Track#"<<CurrentTrack<<G4endl;
 
   std::map<int,int>::const_iterator it_track = mapTrackID_Hits.find(CurrentTrack);
 
   if(it_track != mapTrackID_Hits.end())
     IdHit = it_track->second;
 
-  G4cout<<" --> IdHit:"<<IdHit;
+  //G4cout<<" --> IdHit:"<<IdHit;
 
   if(IdHit==-1)
     {
-      G4cout<<" NewHit !"<<G4endl;
+      //G4cout<<" NewHit !"<<G4endl;
       IdHit = fHitsCollection->GetSize();
       HypHIFrsUTrackerHit* newHit = new HypHIFrsUTrackerHit(fHCID);
 
@@ -92,14 +100,18 @@ G4bool THypHi_SD_UTracker::ProcessHits(G4Step*aStep, G4TouchableHistory*)
     }
   else
     {
-      G4cout<<" Hit#"<<IdHit<<G4endl;
-      HypHIFrsUTrackerHit* CurrentHit =dynamic_cast<HypHIFrsUTrackerHit*>(fHitsCollection->GetHit(IdHit));
-      
-      CurrentHit->Energy += energ_depos;
-      CurrentHit->ExitPosX = aStep->GetTrack()->GetPosition().x();
-      CurrentHit->ExitPosY = aStep->GetTrack()->GetPosition().y();
-      CurrentHit->ExitPosZ = aStep->GetTrack()->GetPosition().z();
+      //G4cout<<" Hit#"<<IdHit<<G4endl;
+      HypHIFrsUTrackerHit* CurrentHit =dynamic_cast<HypHIFrsUTrackerHit*>((*fHitsCollection)[IdHit]);
+      if(CurrentHit!=nullptr)
+	{
+	  CurrentHit->Energy += energ_depos;
+	  CurrentHit->ExitPosX = aStep->GetTrack()->GetPosition().x();
+	  CurrentHit->ExitPosY = aStep->GetTrack()->GetPosition().y();
+	  CurrentHit->ExitPosZ = aStep->GetTrack()->GetPosition().z();
+	}
     }
   //
   return true;
 }
+
+
