@@ -29,6 +29,7 @@
 /// \brief Implementation of the HypHIFrsRunAction class
 
 #include "HypHIFrsRunAction.hh"
+#include "HypHIFrsRunData.hh"
 #include "HypHIFrsAnalysis.hh"
 
 #include "G4Run.hh"
@@ -38,7 +39,6 @@
 #include "G4SystemOfUnits.hh"
 
 #include "THypHi_SensetiveD.hh"
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 HypHIFrsRunAction::HypHIFrsRunAction(const G4String& name, const std::vector<G4String>& nameSD_Det) : G4UserRunAction(),OutputFileName(name),NameDetectorsSD(nameSD_Det)
@@ -50,8 +50,8 @@ HypHIFrsRunAction::HypHIFrsRunAction(const G4String& name, const std::vector<G4S
   // The choice of analysis technology is done via selectin of a namespace
   // in HypHIFrsAnalysis.hh
   
-  G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
-  G4cout << "Using " << analysisManager->GetType() << G4endl;
+  // G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
+  // G4cout << "Using " << analysisManager->GetType() << G4endl;
 
   // // Create directories 
   // //analysisManager->SetHistoDirectoryName("histograms");
@@ -70,21 +70,21 @@ HypHIFrsRunAction::HypHIFrsRunAction(const G4String& name, const std::vector<G4S
 
   // // Creating ntuple
   // //
-  analysisManager->CreateNtuple("HypHIFrs", "Edep and TrackL");
+  // analysisManager->CreateNtuple("HypHIFrs", "Edep and TrackL");
 
-  analysisManager->CreateNtupleIColumn("EventID");
-  analysisManager->CreateNtupleIColumn("LayerID");
-  analysisManager->CreateNtupleIColumn("HitID");
-  analysisManager->CreateNtupleIColumn("TrackID");
-  analysisManager->CreateNtupleDColumn("posX");
-  analysisManager->CreateNtupleDColumn("posY");
-  analysisManager->CreateNtupleDColumn("posZ");
-  analysisManager->CreateNtupleDColumn("momX");
-  analysisManager->CreateNtupleDColumn("momY");
-  analysisManager->CreateNtupleDColumn("momZ");
-  analysisManager->CreateNtupleDColumn("mass");
+  // analysisManager->CreateNtupleIColumn("EventID");
+  // analysisManager->CreateNtupleIColumn("LayerID");
+  // analysisManager->CreateNtupleIColumn("HitID");
+  // analysisManager->CreateNtupleIColumn("TrackID");
+  // analysisManager->CreateNtupleDColumn("posX");
+  // analysisManager->CreateNtupleDColumn("posY");
+  // analysisManager->CreateNtupleDColumn("posZ");
+  // analysisManager->CreateNtupleDColumn("momX");
+  // analysisManager->CreateNtupleDColumn("momY");
+  // analysisManager->CreateNtupleDColumn("momZ");
+  // analysisManager->CreateNtupleDColumn("mass");
 
-  analysisManager->FinishNtuple();
+  // analysisManager->FinishNtuple();
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -110,23 +110,34 @@ HypHIFrsRunAction::~HypHIFrsRunAction()
   // if(OutputFile!=nullptr)
   //   Close();
 
-  delete G4AnalysisManager::Instance();  
+  //  delete G4AnalysisManager::Instance();  
 }
+
+G4Run* HypHIFrsRunAction::GenerateRun()
+{
+  return (new HypHIFrsRunData(OutputFileName));
+}
+
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-void HypHIFrsRunAction::BeginOfRunAction(const G4Run* /*run*/)
+void HypHIFrsRunAction::BeginOfRunAction(const G4Run*)
 { 
+  HypHIFrsRunData* hyprun = dynamic_cast<HypHIFrsRunData*>(G4RunManager::GetRunManager()->GetNonConstCurrentRun());
+  
+  //const HypHIFrsRunData* hyprun = dynamic_cast<const HypHIFrsRunData*>(run);
+  hyprun->InitTree(NameDetectorsSD);
+
   //inform the runManager to save random number seed
   //G4RunManager::GetRunManager()->SetRandomNumberStore(true);
   
   // Get analysis manager
-  G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
+  // G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
 
-  // Open an output file
-  //
-  G4String fileName = "HypHIFrsOut";
-  analysisManager->OpenFile(fileName);
+  // // Open an output file
+  // //
+  // G4String fileName = "HypHIFrsOut";
+  // analysisManager->OpenFile(fileName);
 
   // G4SDManager *SDman = G4SDManager::GetSDMpointer();
 
@@ -141,15 +152,17 @@ void HypHIFrsRunAction::BeginOfRunAction(const G4Run* /*run*/)
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-void HypHIFrsRunAction::EndOfRunAction(const G4Run* /*run*/)
+void HypHIFrsRunAction::EndOfRunAction(const G4Run*)
 {
 
   G4cout<<" End Run : Closing root file ";
   // print histogram statistics
   //
-  
+  HypHIFrsRunData* hyprun = dynamic_cast<HypHIFrsRunData*>(G4RunManager::GetRunManager()->GetNonConstCurrentRun());
+  //const HypHIFrsRunData* hyprun = dynamic_cast<const HypHIFrsRunData*>(run);
+  hyprun->Close();
 
-  G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
+  //G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
   // if ( analysisManager->GetH1(1) ) {
   //   G4cout << "\n ----> print histograms statistic ";
   //   if(isMaster) {
@@ -182,8 +195,8 @@ void HypHIFrsRunAction::EndOfRunAction(const G4Run* /*run*/)
 
   // // save histograms & ntuple
   // //
-  analysisManager->Write();
-  analysisManager->CloseFile();
+  // analysisManager->Write();
+  // analysisManager->CloseFile();
 
   //Close();
   

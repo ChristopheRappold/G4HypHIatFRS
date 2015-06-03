@@ -31,6 +31,7 @@
 #include "HypHIFrsEventAction.hh"
 #include "HypHIFrsRunAction.hh"
 #include "HypHIFrsAnalysis.hh"
+#include "HypHIFrsRunData.hh"
 
 #include "G4SDManager.hh"
 #include "G4RunManager.hh"
@@ -84,55 +85,62 @@ void HypHIFrsEventAction::BeginOfEventAction(const G4Event* /*event*/)
 	  HCID.push_back(sdManager->GetCollectionID(tempName));
 	}
     }
+  HypHIFrsRunData* runData = dynamic_cast<HypHIFrsRunData*>(G4RunManager::GetRunManager()->GetNonConstCurrentRun());
+  runData->Reset();
+
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 void HypHIFrsEventAction::EndOfEventAction(const G4Event* event)
 {
-  G4HCofThisEvent* hce = event->GetHCofThisEvent();
-  if (!hce) 
-    {
-      G4ExceptionDescription msg;
-      msg << "No hits collection of this event found." << G4endl; 
-      G4Exception("B5EventAction::EndOfEventAction()","B5Code001", JustWarning, msg);
-      return;
-    }   
+  HypHIFrsRunData* runData = dynamic_cast<HypHIFrsRunData*>(G4RunManager::GetRunManager()->GetNonConstCurrentRun());
+  runData->FillPerEvent(event);
+
+  
+  // G4HCofThisEvent* hce = event->GetHCofThisEvent();
+  // if (!hce) 
+  //   {
+  //     G4ExceptionDescription msg;
+  //     msg << "No hits collection of this event found." << G4endl; 
+  //     G4Exception("B5EventAction::EndOfEventAction()","B5Code001", JustWarning, msg);
+  //     return;
+  //   }   
 
 
-  G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
+  // G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
 
-  for( auto idCol : HCID)
-    {
-      HypHIFrsUTrackerHitsCollection* TempCol = dynamic_cast<HypHIFrsUTrackerHitsCollection*>(hce->GetHC(idCol));
-      if(TempCol != nullptr)
-	{
-	  G4int nhits = TempCol->entries();
-	  for(G4int ihit = 0 ; ihit<nhits;++ihit)
-	    {
-	      HypHIFrsUTrackerHit* TempHit = (*TempCol)[ihit];
-	      analysisManager->FillNtupleIColumn(0, event->GetEventID());
-	      analysisManager->FillNtupleIColumn(1, TempHit->LayerID);
-	      analysisManager->FillNtupleIColumn(2, ihit);
-	      analysisManager->FillNtupleIColumn(3, TempHit->TrackID);
-	      analysisManager->FillNtupleDColumn(4, TempHit->HitPosX);
-	      analysisManager->FillNtupleDColumn(5, TempHit->HitPosY);
-	      analysisManager->FillNtupleDColumn(6, TempHit->HitPosZ);
-	      analysisManager->FillNtupleDColumn(7, TempHit->MomX);
-	      analysisManager->FillNtupleDColumn(8, TempHit->MomY);
-	      analysisManager->FillNtupleDColumn(9, TempHit->MomZ);
-	      analysisManager->FillNtupleDColumn(10, 0.983);  
-	      analysisManager->AddNtupleRow();  
-	    }
-	}
-      else
-	{
-	  G4ExceptionDescription msg;
-	  msg << "Some of hits collections of this event not found." << G4endl; 
-	  G4Exception("B5EventAction::EndOfEventAction()","B5Code001", JustWarning, msg);
-	  return;
-	}
-    }
+  // for( auto idCol : HCID)
+  //   {
+  //     HypHIFrsUTrackerHitsCollection* TempCol = dynamic_cast<HypHIFrsUTrackerHitsCollection*>(hce->GetHC(idCol));
+  //     if(TempCol != nullptr)
+  // 	{
+  // 	  G4int nhits = TempCol->entries();
+  // 	  for(G4int ihit = 0 ; ihit<nhits;++ihit)
+  // 	    {
+  // 	      HypHIFrsUTrackerHit* TempHit = (*TempCol)[ihit];
+  // 	      analysisManager->FillNtupleIColumn(0, event->GetEventID());
+  // 	      analysisManager->FillNtupleIColumn(1, TempHit->LayerID);
+  // 	      analysisManager->FillNtupleIColumn(2, ihit);
+  // 	      analysisManager->FillNtupleIColumn(3, TempHit->TrackID);
+  // 	      analysisManager->FillNtupleDColumn(4, TempHit->HitPosX);
+  // 	      analysisManager->FillNtupleDColumn(5, TempHit->HitPosY);
+  // 	      analysisManager->FillNtupleDColumn(6, TempHit->HitPosZ);
+  // 	      analysisManager->FillNtupleDColumn(7, TempHit->MomX);
+  // 	      analysisManager->FillNtupleDColumn(8, TempHit->MomY);
+  // 	      analysisManager->FillNtupleDColumn(9, TempHit->MomZ);
+  // 	      analysisManager->FillNtupleDColumn(10, 0.983);  
+  // 	      analysisManager->AddNtupleRow();  
+  // 	    }
+  // 	}
+  //     else
+  // 	{
+  // 	  G4ExceptionDescription msg;
+  // 	  msg << "Some of hits collections of this event not found." << G4endl; 
+  // 	  G4Exception("B5EventAction::EndOfEventAction()","B5Code001", JustWarning, msg);
+  // 	  return;
+  // 	}
+  //   }
 
 
   // G4RunManager* run = G4RunManager::GetRunManager();

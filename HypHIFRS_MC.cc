@@ -101,7 +101,7 @@ int main(int argc,char** argv)
   G4int nEvent = 0;
   bool Input_CIN = false;
   G4String ParamInputFileName = "HypHIMC_ParInput.txt";
-  G4String OutputFileName = "HypHIMC_Out.root";
+  G4String OutputFileName = "HypHIMC_OutNew.root";
   
   int option_char;
   while ((option_char = getopt_long (argc,argv,"+hcm:u:t:e:i:o:",optlong,NULL)) != EOF)

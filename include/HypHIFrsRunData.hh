@@ -23,65 +23,69 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-// $Id: HypHIFrsRunAction.hh 74265 2013-10-02 14:41:20Z gcosmo $
+// $Id: HypHIFrsRunData.hh 69223 2013-04-23 12:36:10Z gcosmo $
 // 
-/// \file HypHIFrsRunAction.hh
-/// \brief Definition of the HypHIFrsRunAction class
+/// \file HypHIFrsRunData.hh
+/// \brief Definition of the HypHIFrsRunData class
 
-#ifndef HypHIFrsRunAction_h
-#define HypHIFrsRunAction_h 1
+#ifndef HypHIFrsRunData_h
+#define HypHIFrsRunData_h 1
 
-#include "G4UserRunAction.hh"
+#include "G4Run.hh"
 #include "globals.hh"
+#include "G4Event.hh"
 
 #include "TFile.h"
 #include "TTree.h"
-#include "TH1F.h"
+#include "TClonesArray.h"
 
-class G4Run;
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-/// Run action class
-///
-/// It accumulates statistic and computes dispersion of the energy deposit 
-/// and track lengths of charged particles with use of analysis tools:
-/// H1D histograms are created in BeginOfRunAction() for the following 
-/// physics quantities:
-/// - Edep in absorber
-/// - Edep in gap
-/// - Track length in absorber
-/// - Track length in gap
-/// The same values are also saved in the ntuple.
-/// The histograms and ntuple are saved in the output file in a format
-/// accoring to a selected technology in HypHIFrsAnalysis.hh.
-///
-/// In EndOfRunAction(), the accumulated statistic and computed 
-/// dispersion is printed.
-///
+enum {
+  kAbs = 0,
+  kGap = 1,
+  kDim = 2
+};  
 
-class HypHIFrsRunAction : public G4UserRunAction
+///  Run data class
+///
+/// It defines data members to hold the energy deposit and track lengths
+/// of charged particles in Absober and Gap layers.
+/// 
+/// In order to reduce the number of data members a 2-dimensions array 
+/// is introduced for each quantity:
+/// - fEdep[], fTrackLength[].
+///
+/// The data are collected step by step in HypHIFrsSteppingAction, and
+/// the accumulated values are filled in histograms and entuple
+/// event by event in B4EventAction.
+
+class HypHIFrsRunData : public G4Run
 {
 public:
-  HypHIFrsRunAction(const G4String& name, const std::vector<G4String>& nameD);
-  virtual ~HypHIFrsRunAction();
-  
-  virtual void BeginOfRunAction(const G4Run*);
-  virtual void   EndOfRunAction(const G4Run*);
-  
-  virtual G4Run* GenerateRun();
+  HypHIFrsRunData(const G4String& namefile);
+  virtual ~HypHIFrsRunData();
 
+  void FillPerEvent(const G4Event* event);
 
-  // void Close();
-  // void Fill() const;
-private :
-  const G4String& OutputFileName;
-  const std::vector<G4String>& NameDetectorsSD;
+  void Reset();
+  void Close();
+  void InitTree(const std::vector<G4String>& nameDet);
 
-  // TFile* OutputFile;
-  // TTree* OutTree;
+private:
 
-  // TH1F* h1;
+  const G4String& namefile;
+  TFile* fileOut;
+  TTree* Tree;
+
+  std::vector<TClonesArray*> addrCloneArray;
+
+  bool LookCheckFile;
+  bool LookCheckTree;
+  bool CloseDone;
 
 };
+
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
