@@ -31,11 +31,11 @@
 #ifndef HypHIFrsPhysicsList_h
 #define HypHIFrsPhysicsList_h 1
 
-#include "G4VUserPhysicsList.hh"
+#include "G4VModularPhysicsList.hh"
 
 /// Physics list with geantino and charged geantino only
 
-class HypHIFrsPhysicsList: public G4VUserPhysicsList
+class HypHIFrsPhysicsList: public G4VModularPhysicsList
 {
   public:
     HypHIFrsPhysicsList();

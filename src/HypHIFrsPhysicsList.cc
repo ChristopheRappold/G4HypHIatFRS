@@ -67,7 +67,7 @@
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 
-HypHIFrsPhysicsList::HypHIFrsPhysicsList() : G4VUserPhysicsList()
+HypHIFrsPhysicsList::HypHIFrsPhysicsList() : G4VModularPhysicsList()
 {}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
