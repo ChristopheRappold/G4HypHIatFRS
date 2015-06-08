@@ -39,6 +39,7 @@
 #include "TTree.h"
 #include "TClonesArray.h"
 
+#include "THypHi_Event.hh"
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 enum {
@@ -78,6 +79,7 @@ private:
   TFile* fileOut;
   TTree* Tree;
 
+  THypHi_Event* fEvent;
   std::vector<TClonesArray*> addrCloneArray;
 
   bool LookCheckFile;

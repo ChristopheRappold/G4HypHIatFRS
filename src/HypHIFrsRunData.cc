@@ -34,6 +34,8 @@
 #include "G4RunManager.hh"
 #include "G4UnitsTable.hh"
 
+#include "G4SystemOfUnits.hh"
+
 #include "THypHi_UTrackerHit.hh"
 #include "HypHIFrsUTrackerHit.hh"
 
@@ -79,7 +81,9 @@ void HypHIFrsRunData::InitTree(const std::vector<G4String>& nameDet)
       
       fileOut->cd();
       Tree = new TTree("G4Tree","Geant4 Tree");
-      
+
+      fEvent = new THypHi_Event; 
+      Tree->Branch("HypHi_Event",&fEvent);
       for(auto& nameBranch : nameDet)
 	{
 	  TClonesArray* SubEvent_UTracker = new TClonesArray("UTrackerHit",20);
@@ -112,6 +116,35 @@ void HypHIFrsRunData::FillPerEvent(const G4Event* event)
 
   // analysisManager->AddNtupleRow();  
 
+  unsigned int Nprimary = event->GetNumberOfPrimaryVertex();
+  if(Nprimary > 0)
+    {
+      for(unsigned int iPrimary = 0; iPrimary < Nprimary; ++Nprimary)
+	{
+	  G4PrimaryVertex* PrimVertex = event->GetPrimaryVertex(iPrimary);
+	  if(PrimVertex!=nullptr)
+	    {
+	      unsigned int Nparticle = PrimVertex->GetNumberOfParticle();
+	      fEvent->InteractionPoint_X=PrimVertex->GetX0()/cm;
+	      fEvent->InteractionPoint_Y=PrimVertex->GetY0()/cm;
+	      fEvent->InteractionPoint_Z=PrimVertex->GetZ0()/cm;
+
+	      for(unsigned int iParticle = 0; iParticle<Nparticle;++iParticle)
+		{
+		  G4PrimaryParticle* PrimParticle = PrimVertex->GetPrimary(iParticle);
+		  if(PrimParticle!=nullptr)
+		    {
+		      fEvent->BeamNames.push_back(PrimParticle->GetParticleDefinition()->GetParticleName());
+		      fEvent->BeamMasses.push_back(PrimParticle->GetMass()/GeV);
+		      fEvent->BeamCharges.push_back(PrimParticle->GetCharge());
+		      fEvent->BeamMomentums_X.push_back(PrimParticle->GetPx()/GeV);
+		      fEvent->BeamMomentums_Y.push_back(PrimParticle->GetPy()/GeV);
+		      fEvent->BeamMomentums_Z.push_back(PrimParticle->GetPz()/GeV);
+		    }	  
+		}
+	    }
+	}
+    }
   G4HCofThisEvent* hce = event->GetHCofThisEvent();
   if (!hce) 
     {
@@ -147,6 +180,7 @@ void HypHIFrsRunData::FillPerEvent(const G4Event* event)
 	      RootHit->Energy = TempHit->Energy;
 	      RootHit->Time = TempHit->Time; 
 	      RootHit->Pname = TempHit->Pname;
+	      RootHit->Mass = TempHit->Mass;
 	    }
   	}
       else
@@ -167,6 +201,7 @@ void HypHIFrsRunData::FillPerEvent(const G4Event* event)
 
 void HypHIFrsRunData::Reset()
 { 
+  fEvent->Zero();
   for( unsigned int i = 0; i<addrCloneArray.size(); ++i )
     addrCloneArray[i]->Clear("C");
 }
