@@ -61,6 +61,7 @@ private:
   G4ParticleGun*  fParticleGun; // G4 particle gun
   const THypHi_Par& Par;
   bool InputCIN;
+  bool RandomizePos;
   bool RandomizeEnergy;
   bool RandomizeDirection;
 

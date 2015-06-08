@@ -49,7 +49,7 @@
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-HypHIFrsPrimaryGeneratorAction::HypHIFrsPrimaryGeneratorAction(const THypHi_Par& _par, bool In) : G4VUserPrimaryGeneratorAction(), fParticleGun(0),Par(_par),InputCIN(In),RandomizeEnergy(false),RandomizeDirection(false)
+HypHIFrsPrimaryGeneratorAction::HypHIFrsPrimaryGeneratorAction(const THypHi_Par& _par, bool In) : G4VUserPrimaryGeneratorAction(), fParticleGun(0),Par(_par),InputCIN(In),RandomizePos(false),RandomizeEnergy(false),RandomizeDirection(false)
 {
   G4int nofParticles = 1;
 
@@ -116,10 +116,12 @@ void HypHIFrsPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 
     }
 
-  // pos_x += ofpos_x;
-  // pos_y += ofpos_y;
-  // pos_z += ofpos_z;
-
+  if(RandomizePos)
+    {
+      pos_x += ofpos_x;
+      pos_y += ofpos_y;
+      pos_z += ofpos_z;
+    }
 
   if(InputCIN)
     { // CIN input
@@ -224,6 +226,8 @@ void HypHIFrsPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 	      //
 	      fParticleGun->SetParticleEnergy(energy);
 	      fParticleGun->SetParticlePosition(G4ThreeVector(pos_x,pos_y,pos_z));
+
+	      fParticleGun->GeneratePrimaryVertex(anEvent);
 	      //
 	      // Event->BeamNames.push_back(particle->GetParticleName());
 	      // Event->BeamMasses.push_back(particle->GetPDGMass());
@@ -271,6 +275,7 @@ void HypHIFrsPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 	//
 	fParticleGun->SetParticlePosition(G4ThreeVector(pos_x,pos_y,pos_z));
 	//	fParticleGun->SetParticlePosition(G4ThreeVector(0,0,0));
+	fParticleGun->GeneratePrimaryVertex(anEvent);
 	
 	//
 	// Event->BeamNames.push_back(ConstParticle->GetParticleName());
@@ -284,7 +289,6 @@ void HypHIFrsPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
     }
 
 
-  fParticleGun->GeneratePrimaryVertex(anEvent);
 
 	
   //G4VPhysicalVolume* tarPV = G4PhysicalVolumeStore::GetInstance()->GetVolume("Target");
@@ -316,7 +320,7 @@ void HypHIFrsPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
   //     msg << "The gun will be place in the center.";
   //     G4Exception("HypHIFrsPrimaryGeneratorAction::GeneratePrimaries()", "MyCode0002", JustWarning, msg);
   //   } 
-  
+  return;
   // Set gun position
   //fParticleGun->SetParticlePosition(G4ThreeVector(2.5*cm,0.,0.));
 
