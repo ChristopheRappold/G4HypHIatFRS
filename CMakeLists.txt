@@ -78,7 +78,7 @@ ROOT_GENERATE_DICTIONARY(
   ${CMAKE_CURRENT_SOURCE_DIR}/include/THypHi_Event.hh
   LINKDEF ${CMAKE_CURRENT_SOURCE_DIR}/include/THypHi_linkdef.h)
 
-set(SourceLib ${PROJECT_SOURCE_DIR}/src/THypHi_Par.cc ${PROJECT_SOURCE_DIR}/src/THypHi_UTrackerHit.cc)
+set(SourceLib ${PROJECT_SOURCE_DIR}/src/THypHi_Par.cc ${PROJECT_SOURCE_DIR}/src/THypHi_Event.cc ${PROJECT_SOURCE_DIR}/src/THypHi_UTrackerHit.cc)
 
 add_library(${library_name} ${SourceLib} ${CMAKE_SHARED_LIBRARY_PREFIX}${library_name}_dict.cxx ${headers})
 target_link_libraries(${library_name} ${VMC_LIBRARIES})
