@@ -40,11 +40,12 @@ class HypHIFrsUTrackerHit : public G4VHit
   G4double MomX;   
   G4double MomY;   
   G4double MomZ;   
+  G4double Mass;   
 
   G4double Energy; 
   G4double Time;   
 
-  G4int Pname;
+  G4String Pname;
 
   G4int LayerID; 
 

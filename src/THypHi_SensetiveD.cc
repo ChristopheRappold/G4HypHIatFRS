@@ -80,7 +80,7 @@ G4bool THypHi_SD_UTracker::ProcessHits(G4Step*aStep, G4TouchableHistory*)
       IdHit = fHitsCollection->GetSize();
       HypHIFrsUTrackerHit* newHit = new HypHIFrsUTrackerHit(fHCID);
 
-      newHit->Pname = aStep->GetTrack()->GetDefinition()->GetPDGEncoding();
+      newHit->Pname = aStep->GetTrack()->GetDefinition()->GetParticleName();
       newHit->TrackID = aStep->GetTrack()->GetTrackID();
       newHit->Energy = energ_depos;
       newHit->Time = aStep->GetPreStepPoint()->GetGlobalTime();
@@ -93,6 +93,7 @@ G4bool THypHi_SD_UTracker::ProcessHits(G4Step*aStep, G4TouchableHistory*)
       newHit->MomX = aStep->GetTrack()->GetMomentum().x();
       newHit->MomY = aStep->GetTrack()->GetMomentum().y();
       newHit->MomZ = aStep->GetTrack()->GetMomentum().z();
+      newHit->Mass = aStep->GetTrack()->GetDefinition()->GetPDGMass();
 
       mapTrackID_Hits.insert(std::pair<int,int>(CurrentTrack,IdHit));
 
