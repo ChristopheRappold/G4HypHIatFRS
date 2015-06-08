@@ -5,6 +5,6 @@
 #pragma link off all functions;
 #pragma link C++ class THypHi_Par+;
 #pragma link C++ class UTrackerHit+;
-
+#pragma link C++ class THypHi_Event;
 #endif
 

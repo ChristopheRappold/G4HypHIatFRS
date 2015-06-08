@@ -75,6 +75,7 @@ ROOT_GENERATE_DICTIONARY(
   no_rootmap
   ${CMAKE_CURRENT_SOURCE_DIR}/include/THypHi_Par.hh
   ${CMAKE_CURRENT_SOURCE_DIR}/include/THypHi_UTrackerHit.hh
+  ${CMAKE_CURRENT_SOURCE_DIR}/include/THypHi_Event.hh
   LINKDEF ${CMAKE_CURRENT_SOURCE_DIR}/include/THypHi_linkdef.h)
 
 set(SourceLib ${PROJECT_SOURCE_DIR}/src/THypHi_Par.cc ${PROJECT_SOURCE_DIR}/src/THypHi_UTrackerHit.cc)
