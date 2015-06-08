@@ -196,9 +196,9 @@ int main(int argc,char** argv)
   HypHIFrsDetectorConstruction* detConstruction = new HypHIFrsDetectorConstruction(*ParameterSet);
   runManager->SetUserInitialization(detConstruction);
   
-  //G4VModularPhysicsList* physicsList = new FTFP_BERT;
+  G4VModularPhysicsList* physicsList = new FTFP_BERT;
   
-  G4VModularPhysicsList* physicsList = new HypHIFrsPhysicsList();
+  //G4VUserPhysicsList* physicsList = new HypHIFrsPhysicsList();
   physicsList->RegisterPhysics(new G4StepLimiterPhysics());
   runManager->SetUserInitialization(physicsList);
     
