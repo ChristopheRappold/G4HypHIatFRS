@@ -2,7 +2,7 @@
 #define HYPHI_UTRACKER_HIT_H
 
 #include "TObject.h"
-//#include <string>
+#include <string>
 
 class UTrackerHit : public TObject
 {
@@ -25,11 +25,12 @@ class UTrackerHit : public TObject
   Double32_t MomX;   
   Double32_t MomY;   
   Double32_t MomZ;   
+  Double32_t Mass;   
 
   Double32_t Energy; 
   Double32_t Time;   
 
-  Int_t Pname;
+  std::string Pname;
     
   ClassDef(UTrackerHit,1) //Ex02TrackerHit  
 };
