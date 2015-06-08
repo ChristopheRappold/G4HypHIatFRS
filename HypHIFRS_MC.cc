@@ -40,6 +40,7 @@
 #include "G4UImanager.hh"
 #include "G4UIcommand.hh"
 #include "FTFP_BERT.hh"
+#include "HypHIFrsPhysicsList.hh"
 #include "G4StepLimiterPhysics.hh"
 
 
@@ -194,8 +195,10 @@ int main(int argc,char** argv)
   
   HypHIFrsDetectorConstruction* detConstruction = new HypHIFrsDetectorConstruction(*ParameterSet);
   runManager->SetUserInitialization(detConstruction);
-
-  G4VModularPhysicsList* physicsList = new FTFP_BERT;
+  
+  //G4VModularPhysicsList* physicsList = new FTFP_BERT;
+  
+  G4VModularPhysicsList* physicsList = new HypHIFrsPhysicsList();
   physicsList->RegisterPhysics(new G4StepLimiterPhysics());
   runManager->SetUserInitialization(physicsList);
     
