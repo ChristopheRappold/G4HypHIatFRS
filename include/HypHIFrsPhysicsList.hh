@@ -38,13 +38,18 @@
 class HypHIFrsPhysicsList: public G4VModularPhysicsList
 {
   public:
-    HypHIFrsPhysicsList();
+    HypHIFrsPhysicsList(const THypHi_Par& _par);
     ~HypHIFrsPhysicsList();
 
   protected:
     // Construct particle and physics process
-    void ConstructParticle();
-    void ConstructProcess();
+    // void ConstructParticle();
+    // void ConstructProcess();
+  virtual void SetCuts();
+
+private :
+  const THypHi_Par& Par;
+
 };
 
 #endif
