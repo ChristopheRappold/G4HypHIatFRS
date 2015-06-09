@@ -174,11 +174,23 @@ G4VPhysicalVolume* HypHIFrsDetectorConstruction::Construct()
   G4LogicalVolume* SetupLV = FindVolume("Setup");
   G4LogicalVolume* IronQuadLV = FindVolume("IronQuad");
 
+  G4Region* aTargetRegion = new G4Region("TargetRegion");
+
+  G4LogicalVolume* TargetLV = FindVolume("Target");
+  TargetLV->SetRegion(aTargetRegion);
+  aTargetRegion->AddRootLogicalVolume(TargetLV);
+
+  G4Region* aDetectorRegion = new G4Region("DetectorRegion");
+ 
   std::vector<G4String> NameSD = {"START","TR0","TR1","DC1","TR2","DC2","DC3","TOFP","DC2STOP","STOP"};
 
   for(auto& CurrentName : NameSD)
     {
       G4LogicalVolume* UTracker = FindVolume(CurrentName);
+
+      UTracker->SetRegion(aDetectorRegion);
+      aDetectorRegion->AddRootLogicalVolume(UTracker);
+
       UTracker->SetVisAttributes(VisDetectorSD);
     }  
 
