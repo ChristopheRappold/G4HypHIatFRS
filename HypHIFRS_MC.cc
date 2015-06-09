@@ -196,10 +196,10 @@ int main(int argc,char** argv)
   HypHIFrsDetectorConstruction* detConstruction = new HypHIFrsDetectorConstruction(*ParameterSet);
   runManager->SetUserInitialization(detConstruction);
   
-  G4VModularPhysicsList* physicsList = new FTFP_BERT;
+  //G4VModularPhysicsList* physicsList = new FTFP_BERT;
   
-  //G4VUserPhysicsList* physicsList = new HypHIFrsPhysicsList();
-  physicsList->RegisterPhysics(new G4StepLimiterPhysics());
+  G4VModularPhysicsList* physicsList = new HypHIFrsPhysicsList(*ParameterSet);
+  //physicsList->RegisterPhysics(new G4StepLimiterPhysics());
   runManager->SetUserInitialization(physicsList);
     
   HypHIFrsActionInitialization* actionInitialization = new HypHIFrsActionInitialization(detConstruction,*ParameterSet,OutputFileName);
