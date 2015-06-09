@@ -43,6 +43,7 @@ void THypHi_Event::Zero(){
     BeamMomentums_X.resize(0);
     BeamMomentums_Y.resize(0);
     BeamMomentums_Z.resize(0);
+    BeamTrackID.resize(0);
 }
 
 /********************************************************************/

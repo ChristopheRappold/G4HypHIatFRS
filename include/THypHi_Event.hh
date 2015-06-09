@@ -44,6 +44,7 @@ public: // Primary decay vertex
   std::vector<Double_t> BeamMomentums_X;
   std::vector<Double_t> BeamMomentums_Y;
   std::vector<Double_t> BeamMomentums_Z;
+  std::vector<Int_t> BeamTrackID;
   //***********************************************************
           
 public:

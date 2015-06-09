@@ -119,7 +119,7 @@ void HypHIFrsRunData::FillPerEvent(const G4Event* event)
   unsigned int Nprimary = event->GetNumberOfPrimaryVertex();
   if(Nprimary > 0)
     {
-      //G4cout<<" Write Event str :"<<Nprimary<<G4endl;
+      G4cout<<" Write Event str :"<<Nprimary<<G4endl;
       for(unsigned int iPrimary = 0; iPrimary < Nprimary; ++iPrimary)
 	{
 	  G4PrimaryVertex* PrimVertex = event->GetPrimaryVertex(iPrimary);
@@ -130,8 +130,8 @@ void HypHIFrsRunData::FillPerEvent(const G4Event* event)
 	      fEvent->InteractionPoint_X=PrimVertex->GetX0()/cm;
 	      fEvent->InteractionPoint_Y=PrimVertex->GetY0()/cm;
 	      fEvent->InteractionPoint_Z=PrimVertex->GetZ0()/cm;
-
-	      //G4cout<< "Vtx#"<<iPrimary<<" Nparticle :"<<Nparticle<<G4endl;
+	      
+	      G4cout<< "Vtx#"<<iPrimary<<" Nparticle :"<<Nparticle<<G4endl;
 
 	      for(unsigned int iParticle = 0; iParticle<Nparticle;++iParticle)
 		{
@@ -139,15 +139,16 @@ void HypHIFrsRunData::FillPerEvent(const G4Event* event)
 		  
 		  if(PrimParticle!=nullptr)
 		    {
-		      // G4cout<<" Particle#"<<iParticle<<" "<<PrimParticle->GetParticleDefinition()->GetParticleName()
-		      //         <<" "<<PrimParticle->GetTotalEnergy()<<G4endl;
-			
+		       G4cout<<" Particle#"<<iParticle<<" "<<PrimParticle->GetParticleDefinition()->GetParticleName()
+			     <<" "<<PrimParticle->GetTotalEnergy()<<G4endl;
+		       //PrimParticle->GetDaughter()->Print();
 		      fEvent->BeamNames.push_back(PrimParticle->GetParticleDefinition()->GetParticleName());
 		      fEvent->BeamMasses.push_back(PrimParticle->GetMass()/GeV);
 		      fEvent->BeamCharges.push_back(PrimParticle->GetCharge());
 		      fEvent->BeamMomentums_X.push_back(PrimParticle->GetPx()/GeV);
 		      fEvent->BeamMomentums_Y.push_back(PrimParticle->GetPy()/GeV);
 		      fEvent->BeamMomentums_Z.push_back(PrimParticle->GetPz()/GeV);
+		      fEvent->BeamTrackID.push_back(PrimParticle->GetTrackID());
 		    }	  
 		}
 	    }
