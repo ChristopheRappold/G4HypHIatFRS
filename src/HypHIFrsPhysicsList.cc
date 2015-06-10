@@ -77,8 +77,13 @@
 #include "G4HadronPhysicsQGSP_BIC_HP.hh"
 #include "G4HadronInelasticQBBC.hh"
 #include "G4HadronPhysicsINCLXX.hh"
+#include "G4HadronElasticPhysics.hh"
+#include "G4HadronPhysicsQGSP_BIC.hh"
+
+#include "G4IonBinaryCascadePhysics.hh"
 #include "G4IonPhysics.hh"
 #include "G4IonINCLXXPhysics.hh"
+
 #include "G4EmStandardPhysics.hh"
 //#include "GammaPhysics.hh"
 
@@ -86,6 +91,10 @@
 #include "G4DecayPhysics.hh"
 #include "G4RadioactiveDecayPhysics.hh"
 
+
+#include "G4Region.hh"
+#include "G4RegionStore.hh"
+#include "G4ProductionCuts.hh"
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
@@ -230,7 +239,7 @@ void HypHIFrsPhysicsList::SetCuts()
   G4ProductionCuts* cuts;
   //
   // Setting cuts for Plastic detectros
-  reg = G4RegionStore::GetInstance()->GetRegion("PlasticRegion");
+  reg = G4RegionStore::GetInstance()->GetRegion("DetectorRegion");
   cuts = new G4ProductionCuts;
   cuts->SetProductionCut(Par.Get_CutValue_Plastic());
   reg->SetProductionCuts(cuts);

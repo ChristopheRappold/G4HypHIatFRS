@@ -32,6 +32,7 @@
 #define HypHIFrsPhysicsList_h 1
 
 #include "G4VModularPhysicsList.hh"
+#include "THypHi_Par.hh"
 
 /// Physics list with geantino and charged geantino only
 
