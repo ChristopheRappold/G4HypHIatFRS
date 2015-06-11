@@ -23,51 +23,67 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-// $Id: HypHIFrsActionInitialization.cc 68058 2013-03-13 14:47:43Z gcosmo $
 //
-/// \file HypHIFrsActionInitialization.cc
-/// \brief Implementation of the HypHIFrsActionInitialization class
-
-#include "HypHIFrsActionInitialization.hh"
-#include "HypHIFrsPrimaryGeneratorAction.hh"
-#include "HypHIFrsRunAction.hh"
-#include "HypHIFrsEventAction.hh"
-#include "HypHIFrsStackingAction.hh"
-#include "HypHIFrsDetectorConstruction.hh"
-
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-HypHIFrsActionInitialization::HypHIFrsActionInitialization (HypHIFrsDetectorConstruction* detConstruction, const THypHi_Par& ConfFile, const G4String& Out, bool In) : G4VUserActionInitialization(),fDetConstruction(detConstruction),Par(ConfFile),OutputFile(Out),InputCIN(In)
+#ifndef HypHIFrsStackingAction_H
+#define HypHIFrsStackingAction_H 1
+
+#include "globals.hh"
+#include "G4UserStackingAction.hh"
+#include "G4ThreeVector.hh"
+#include "G4String.hh"
+
+#include <vector>
+#include <map>
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+struct Daugthers_Info
 {
 
+  G4ThreeVector secondary_vertex;
+  G4double decaytime;
+  std::vector<G4ThreeVector> mom_daughters;
+  std::vector<G4double> mass_daughters;
+  std::vector<G4double> charge_daughters;
+  std::vector<G4String> name_daughters;
+  std::vector<G4int> trackID_daughters;
+
+  void Print() const
+  {
+    G4cout<<" Daugther :"<<G4endl;
+    G4cout<<" Secondary vertex :"<<secondary_vertex<<G4endl;
+
+    for(unsigned int i=0; i< name_daughters.size();++i)
+      {
+	G4cout<<" name :"<<name_daughters[i]<<G4endl;
+	G4cout<<"  '--> mom"<<mom_daughters[i]<<G4endl;
+      }
+  }
+};
+
+class HypHIFrsStackingAction : public G4UserStackingAction
+{
+public:
+  HypHIFrsStackingAction();
+  virtual ~HypHIFrsStackingAction();
+
+public:
+  virtual G4ClassificationOfNewTrack ClassifyNewTrack(const G4Track* aTrack);
+  virtual void NewStage();
+  virtual void PrepareNewEvent();
+
+  bool Get_MotherInfo(G4int ) const;
+  const Daugthers_Info Get_DaugthersInfo(G4int ) const;
+private:
+  
+  std::map<G4int,Daugthers_Info> mother_daugthersInfo;
+  
   
 
-}
+};
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-HypHIFrsActionInitialization::~HypHIFrsActionInitialization()
-{}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-void HypHIFrsActionInitialization::BuildForMaster() const
-{
-  SetUserAction(new HypHIFrsRunAction(OutputFile,fDetConstruction->NameDetectorsSD));
-}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-void HypHIFrsActionInitialization::Build() const
-{
-  SetUserAction(new HypHIFrsPrimaryGeneratorAction(Par,InputCIN));
-
-  SetUserAction(new HypHIFrsRunAction(OutputFile,fDetConstruction->NameDetectorsSD));
-  
-  HypHIFrsEventAction* eventAction = new HypHIFrsEventAction(fDetConstruction->NameDetectorsSD);
-  SetUserAction(eventAction);
-
-  SetUserAction(new HypHIFrsStackingAction());
-}  
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+#endif
