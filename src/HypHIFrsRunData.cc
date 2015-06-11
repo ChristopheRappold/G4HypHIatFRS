@@ -39,6 +39,8 @@
 #include "THypHi_UTrackerHit.hh"
 #include "HypHIFrsUTrackerHit.hh"
 
+#include "HypHIFrsStackingAction.hh"
+
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 HypHIFrsRunData::HypHIFrsRunData(const G4String& name) : G4Run(),namefile(name),fileOut(nullptr),Tree(nullptr),LookCheckFile(false),LookCheckTree(false),CloseDone(false)
@@ -115,7 +117,8 @@ void HypHIFrsRunData::FillPerEvent(const G4Event* event)
   // }  
 
   // analysisManager->AddNtupleRow();  
-
+  std::vector<int> prim_id;
+  
   unsigned int Nprimary = event->GetNumberOfPrimaryVertex();
   if(Nprimary > 0)
     {
@@ -139,9 +142,10 @@ void HypHIFrsRunData::FillPerEvent(const G4Event* event)
 		  
 		  if(PrimParticle!=nullptr)
 		    {
-		       G4cout<<" Particle#"<<iParticle<<" "<<PrimParticle->GetParticleDefinition()->GetParticleName()
-			     <<" "<<PrimParticle->GetTotalEnergy()<<G4endl;
-		       //PrimParticle->GetDaughter()->Print();
+		      G4cout<<" Particle#"<<iParticle<<" "<<PrimParticle->GetParticleDefinition()->GetParticleName()
+			    <<" "<<PrimParticle->GetTotalEnergy()<<G4endl;
+		      //G4cout<<"Daugther"<<PrimParticle->GetDaughter()<<G4endl;//->Print();
+		      PrimParticle->GetUserInformation();
 		      fEvent->BeamNames.push_back(PrimParticle->GetParticleDefinition()->GetParticleName());
 		      fEvent->BeamMasses.push_back(PrimParticle->GetMass()/GeV);
 		      fEvent->BeamCharges.push_back(PrimParticle->GetCharge());
@@ -154,6 +158,53 @@ void HypHIFrsRunData::FillPerEvent(const G4Event* event)
 	    }
 	}
     }
+
+  const HypHIFrsStackingAction* stackingUser = dynamic_cast<const HypHIFrsStackingAction*> (G4RunManager::GetRunManager()->GetUserStackingAction());
+  for(unsigned int idPr = 0 ; idPr < fEvent->BeamTrackID.size() ;++idPr)
+    {
+      if(stackingUser->Get_MotherInfo(fEvent->BeamTrackID[idPr]))
+	prim_id.push_back(idPr);
+    }
+
+  if(prim_id.size()!=0)
+    {
+      if(prim_id.size()!=1)
+	{
+	  G4cout<<" G4RunData : too much mother decaying ! "<<G4endl;
+	}
+      else
+	{
+	  int MotherID = prim_id[0];
+	  const Daugthers_Info tempDaugther = stackingUser->Get_DaugthersInfo(fEvent->BeamTrackID[MotherID]);
+	  if(tempDaugther.name_daughters.size()!=0)
+	    {
+	      fEvent->WasDecay = 1;
+	      fEvent->MotherTrackID = MotherID;
+	      fEvent->MotherName = fEvent->BeamNames[MotherID];
+	      fEvent->MotherMass = fEvent->BeamMasses[MotherID];
+	      fEvent->DecayTime = tempDaugther.decaytime/ns;
+	      fEvent->DecayVertex_X = tempDaugther.secondary_vertex.x()/cm;
+	      fEvent->DecayVertex_Y = tempDaugther.secondary_vertex.y()/cm;
+	      fEvent->DecayVertex_Z = tempDaugther.secondary_vertex.z()/cm;
+
+	      for(unsigned int idDaug = 0 ; idDaug < tempDaugther.name_daughters.size(); ++idDaug)
+		{
+		  fEvent->DaughterNames.push_back(tempDaugther.name_daughters[idDaug]);
+		  fEvent->DaughterMasses.push_back(tempDaugther.mass_daughters[idDaug]/GeV);
+		  fEvent->DaughterCharges.push_back(tempDaugther.charge_daughters[idDaug]);
+		  fEvent->DaughterMomentums_X.push_back(tempDaugther.mom_daughters[idDaug].x()/GeV);
+		  fEvent->DaughterMomentums_Y.push_back(tempDaugther.mom_daughters[idDaug].y()/GeV);
+		  fEvent->DaughterMomentums_Z.push_back(tempDaugther.mom_daughters[idDaug].z()/GeV);
+
+		  fEvent->MotherMomentumAtDecay_X += tempDaugther.mom_daughters[idDaug].x()/GeV;
+		  fEvent->MotherMomentumAtDecay_Y += tempDaugther.mom_daughters[idDaug].y()/GeV;
+		  fEvent->MotherMomentumAtDecay_Z += tempDaugther.mom_daughters[idDaug].z()/GeV;
+		}
+	    }
+	}
+    }
+
+
   G4HCofThisEvent* hce = event->GetHCofThisEvent();
   if (!hce) 
     {
