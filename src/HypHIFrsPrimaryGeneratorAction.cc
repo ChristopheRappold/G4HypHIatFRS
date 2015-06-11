@@ -58,12 +58,14 @@ HypHIFrsPrimaryGeneratorAction::HypHIFrsPrimaryGeneratorAction(const THypHi_Par&
   // default particle kinematic
   //
   if(In==false)
-    ConstParticle = GetParticle(Par.Get_Beam_Type());
+    {
+      ConstParticle = GetParticle(Par.Get_Beam_Type());
+      G4cout<<" PrimaryGenerator :"<<Par.Get_Beam_Type()<<" "<<ConstParticle<<G4endl;
+      fParticleGun->SetParticleDefinition(ConstParticle);
+    }
   else
     ConstParticle = nullptr;
   
-  G4cout<<" PrimaryGenerator :"<<Par.Get_Beam_Type()<<" "<<ConstParticle<<G4endl;
-  fParticleGun->SetParticleDefinition(ConstParticle);
   
   //fParticleGun->SetParticleMomentumDirection(G4ThreeVector(0.,0.,1.));
   //fParticleGun->SetParticleEnergy(50.*MeV);
@@ -426,7 +428,7 @@ G4ParticleDefinition* HypHIFrsPrimaryGeneratorAction::GetParticle(const G4String
     }
   else if(Lpos!=(G4int)G4String::npos)
     {
-      if(particleName=="Lambda" || particleName=="lambda" || particleName=="Lambda0")
+      if(particleName=="Lambda" || particleName=="lambda" || particleName=="Lambda0" || particleName=="L")
 	{
 	  particle = pTable->FindParticle("lambda");
 	  if(particle) return particle;
