@@ -27,6 +27,9 @@ class THypHi_Par:public TNamed{
     THypHi_DEF_PAR(Double_t,Beam_MomentumDirectionX);
     THypHi_DEF_PAR(Double_t,Beam_MomentumDirectionY);
     THypHi_DEF_PAR(Double_t,Beam_MomentumDirectionZ);
+    THypHi_DEF_PAR(Int_t,RandomizePos);
+    THypHi_DEF_PAR(Int_t,RandomizeEnergy);
+    THypHi_DEF_PAR(Int_t,RandomizeDirection);
     /*--- CutValue_* subsection ---*/
     THypHi_DEF_PAR(Double_t,CutValue_Default);
     THypHi_DEF_PAR(Double_t,CutValue_Target);

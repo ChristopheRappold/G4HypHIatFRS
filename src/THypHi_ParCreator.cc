@@ -81,6 +81,9 @@ void THypHi_ParCreator::Init(std::string InputFileName){
 	READ_ONE_PARAM_float(Beam_MomentumDirectionX);
 	READ_ONE_PARAM_float(Beam_MomentumDirectionY);
 	READ_ONE_PARAM_float(Beam_MomentumDirectionZ);
+	READ_ONE_PARAM_int(RandomizePos)
+	READ_ONE_PARAM_int(RandomizeEnergy)
+	READ_ONE_PARAM_int(RandomizeDirection)
 	//
 	// CutValue_* subsection
 	READ_ONE_PARAM_DIMENSION_float(CutValue_Default);
@@ -293,6 +296,9 @@ void THypHi_ParCreator::SetDafaultValues(){
     SET_PARAMETER(Beam_MomentumDirectionX,0.0);
     SET_PARAMETER(Beam_MomentumDirectionY,0.0);
     SET_PARAMETER(Beam_MomentumDirectionZ,1.0);
+    SET_PARAMETER(RandomizePos,0);
+    SET_PARAMETER(RandomizeEnergy,0);
+    SET_PARAMETER(RandomizeDirection,0);
     /*--- CutValue_* subsection ---*/
     SET_PARAMETER(CutValue_Default,1.0*mm);
     SET_PARAMETER(CutValue_Target,0.1*mm);

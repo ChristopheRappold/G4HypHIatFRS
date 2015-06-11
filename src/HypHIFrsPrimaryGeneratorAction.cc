@@ -54,7 +54,9 @@ HypHIFrsPrimaryGeneratorAction::HypHIFrsPrimaryGeneratorAction(const THypHi_Par&
   G4int nofParticles = 1;
 
   fParticleGun = new G4ParticleGun(nofParticles);
-
+  RandomizePos = Par.Get_RandomizePos();
+  RandomizeEnergy = Par.Get_RandomizeEnergy();
+  RandomizeDirection = Par.Get_RandomizeDirection();
   // default particle kinematic
   //
   if(In==false)
@@ -247,7 +249,7 @@ void HypHIFrsPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
       energy = Par.Get_Beam_KineticEnergy();
 
       if(RandomizeEnergy)
-	energy += 1000*std::sqrt(-std::log(G4UniformRand()-0.5)); // Gaus
+	energy += 1000*std::sqrt(-std::log(G4UniformRand())); // Gaus
       
       fParticleGun->SetParticleDefinition(ConstParticle);
 
@@ -264,8 +266,8 @@ void HypHIFrsPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 	  double ydir = Par.Get_Beam_MomentumDirectionY();
 	  double zdir = Par.Get_Beam_MomentumDirectionZ();
 	  
-	  xdir +=0.1*std::sqrt(-std::log(G4UniformRand()-0.5));
-	  ydir +=0.1*std::sqrt(-std::log(G4UniformRand()-0.5));
+	  xdir +=0.05*std::sqrt(-std::log(G4UniformRand()));
+	  ydir +=0.05*std::sqrt(-std::log(G4UniformRand()));
 	  zdir = sqrt(1.0-ydir*ydir-xdir*xdir);
 	  std::cout<<xdir<<" "<<ydir<<" "<<zdir<<std::endl;
 
