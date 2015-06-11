@@ -59,14 +59,7 @@ HypHIFrsPrimaryGeneratorAction::HypHIFrsPrimaryGeneratorAction(const THypHi_Par&
   RandomizeDirection = Par.Get_RandomizeDirection();
   // default particle kinematic
   //
-  if(In==false)
-    {
-      ConstParticle = GetParticle(Par.Get_Beam_Type());
-      G4cout<<" PrimaryGenerator :"<<Par.Get_Beam_Type()<<" "<<ConstParticle<<G4endl;
-      fParticleGun->SetParticleDefinition(ConstParticle);
-    }
-  else
-    ConstParticle = nullptr;
+  ConstParticle = nullptr;
   
   
   //fParticleGun->SetParticleMomentumDirection(G4ThreeVector(0.,0.,1.));
@@ -92,6 +85,13 @@ void HypHIFrsPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
   //
   //G4double worldZHalfLength = 0;
   //G4LogicalVolume* worlLV = G4LogicalVolumeStore::GetInstance()->GetVolume("Target");
+
+  if(InputCIN == false && ConstParticle == nullptr)
+    {
+      ConstParticle = GetParticle(Par.Get_Beam_Type());
+      G4cout<<" PrimaryGenerator :"<<Par.Get_Beam_Type()<<" "<<ConstParticle<<G4endl;
+    }
+
 
   G4double energy;
 
@@ -342,7 +342,7 @@ G4ParticleDefinition* HypHIFrsPrimaryGeneratorAction::GetParticle(const G4String
   G4ParticleTable* pTable = G4ParticleTable::GetParticleTable();
 
   G4IonTable* pTableIon = G4IonTable::GetIonTable();
-  //pTableIon->CreateAllIon();
+  pTableIon->CreateAllIon();
 //     G4ParticleDefinition* particle = pTable->FindParticle(particleName);
 //     if(particle) return particle;
 
@@ -437,7 +437,7 @@ G4ParticleDefinition* HypHIFrsPrimaryGeneratorAction::GetParticle(const G4String
 	}
       else if(particleName=="H3L")
 	{
-	  particle = pTableIon->GetIon(1,3,0.,1);
+	  particle = pTableIon->GetIon(1,3,1,0.);
 	  if(particle)
 	    return particle;
 	  else
@@ -450,7 +450,7 @@ G4ParticleDefinition* HypHIFrsPrimaryGeneratorAction::GetParticle(const G4String
 	}
       else if(particleName=="H4L")
 	{
-	  particle = pTableIon->GetIon(1,4,0.,1);
+	  particle = pTableIon->GetIon(1,4,1,0.);
 	  if(particle)
 	    return particle;
 	  else
