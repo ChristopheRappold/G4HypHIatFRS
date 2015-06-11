@@ -19,6 +19,8 @@ class THypHi_Par:public TNamed{
     /****************************/
     /**** Parameters section ****/
     /*--- Beam_* subsection ---*/
+    THypHi_DEF_PAR(std::string,PhysicsListName);
+    /*--- Beam_* subsection ---*/
     THypHi_DEF_PAR(std::string,Beam_Type);
     THypHi_DEF_PAR(Double_t,Beam_KineticEnergy);
     THypHi_DEF_PAR(Double_t,Beam_SpotSizeSigma);

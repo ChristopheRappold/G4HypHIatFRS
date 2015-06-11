@@ -1,11 +1,14 @@
 # The parameters input file for HypHiMC programm
 # please use "#" as a beginning of the comment line
-
+#--------------------------------------------------------------------
+PhysicsListName NewHypHIFrsList
+#PhysicsListName OldHypHIList
+#PhysicsListName G4Default_FTFP_BERT
 #--------------------------------------------------------------------
 #Beam_* section
 #Beam_Type alpha
 #Beam_KineticEnergy 8.0 GeV
-Beam_Type proton
+Beam_Type lambda
 #Beam_Type proton
 #Beam_KineticEnergy 1.7 GeV
 Beam_KineticEnergy 2.0 GeV 

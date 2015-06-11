@@ -41,6 +41,7 @@
 #include "G4UIcommand.hh"
 #include "FTFP_BERT.hh"
 #include "HypHIFrsPhysicsList.hh"
+#include "THypHi_PhysicsList.hh"
 #include "G4StepLimiterPhysics.hh"
 
 
@@ -196,13 +197,27 @@ int main(int argc,char** argv)
   HypHIFrsDetectorConstruction* detConstruction = new HypHIFrsDetectorConstruction(*ParameterSet);
   runManager->SetUserInitialization(detConstruction);
   
-  //G4VModularPhysicsList* physicsList = new FTFP_BERT;
-  
-  G4VModularPhysicsList* physicsList = new HypHIFrsPhysicsList(*ParameterSet);
-  //physicsList->RegisterPhysics(new G4StepLimiterPhysics());
+  G4VModularPhysicsList* physicsList = 0;
+
+  G4String namePhys = ParameterSet->Get_PhysicsListName();
+  if(namePhys == "G4Default_FTFP_BERT")
+    {
+      physicsList = new FTFP_BERT;
+      physicsList->RegisterPhysics(new G4StepLimiterPhysics());
+    }
+  else if(namePhys == "NewHypHIFrsList")
+    physicsList = new HypHIFrsPhysicsList(*ParameterSet);
+  else if(namePhys == "OldHypHIList")
+    physicsList = new THypHi_PhysicsList(*ParameterSet);
+  else
+    {
+      physicsList = new FTFP_BERT;
+      physicsList->RegisterPhysics(new G4StepLimiterPhysics());
+    }
+
   runManager->SetUserInitialization(physicsList);
     
-  HypHIFrsActionInitialization* actionInitialization = new HypHIFrsActionInitialization(detConstruction,*ParameterSet,OutputFileName);
+  HypHIFrsActionInitialization* actionInitialization = new HypHIFrsActionInitialization(detConstruction,*ParameterSet,OutputFileName,Input_CIN);
   runManager->SetUserInitialization(actionInitialization);
 
   // Initialize G4 kernel

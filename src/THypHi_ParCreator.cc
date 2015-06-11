@@ -72,6 +72,8 @@ void THypHi_ParCreator::Init(std::string InputFileName){
 	tstr = GetNexWord(&infile);
 	if(tstr == "#") break;
 	//
+	// PhysicsList subsection
+	READ_ONE_PARAM_string(PhysicsListName);
 	// Beam_* subsection
 	READ_ONE_PARAM_string(Beam_Type);
 	READ_ONE_PARAM_DIMENSION_float(Beam_KineticEnergy);
@@ -282,6 +284,8 @@ void THypHi_ParCreator::Init(std::string InputFileName){
 //-------------------------------------------------------------------
 void THypHi_ParCreator::SetDafaultValues(){
     /**** Set default values for parameters ****/
+
+    SET_PARAMETER(PhysicsListName,"G4Default_FTFP_BERT");
     /*--- Beam_* subsection ---*/
     SET_PARAMETER(Beam_Type,"H4L");
     SET_PARAMETER(Beam_KineticEnergy,4.0*GeV);
