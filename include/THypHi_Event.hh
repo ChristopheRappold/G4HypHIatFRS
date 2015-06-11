@@ -13,6 +13,7 @@ class THypHi_Event:public TObject
 {
 public: // Primary decay vertex
   Int_t WasDecay;
+  Int_t MotherTrackID;
   std::string MotherName;
   Double_t MotherMass;
   Double_t DecayTime;
@@ -29,13 +30,13 @@ public: // Primary decay vertex
   Double_t MotherMomentumAtDecay_Y;
   Double_t MotherMomentumAtDecay_Z;
   
-
   std::vector<std::string> DaughterNames;
   std::vector<Double_t> DaughterMasses;
   std::vector<Double_t> DaughterCharges;
   std::vector<Double_t> DaughterMomentums_X;
   std::vector<Double_t> DaughterMomentums_Y;
   std::vector<Double_t> DaughterMomentums_Z;
+  std::vector<Int_t> DaugtherTrackID;
   //
   // beam composition
   std::vector<std::string> BeamNames;

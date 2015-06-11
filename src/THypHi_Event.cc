@@ -15,6 +15,7 @@ void THypHi_Event::Zero(){
     WasDecay = 0;
     MotherName = "";
     MotherMass = 0.0;
+    MotherTrackID = 0.;
     DecayTime = 0.0;
     //
     InteractionPoint_X = 0.0;
@@ -35,6 +36,7 @@ void THypHi_Event::Zero(){
     DaughterMomentums_X.resize(0);
     DaughterMomentums_Y.resize(0);
     DaughterMomentums_Z.resize(0);
+    DaugtherTrackID.resize(0);
     //
     // beam composition
     BeamNames.resize(0);
