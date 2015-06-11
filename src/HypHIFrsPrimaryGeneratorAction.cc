@@ -451,6 +451,7 @@ G4ParticleDefinition* HypHIFrsPrimaryGeneratorAction::GetParticle(const G4String
       else if(particleName=="H4L")
 	{
 	  particle = pTableIon->GetIon(1,4,1,0.);
+	  particle->DumpTable();
 	  if(particle)
 	    return particle;
 	  else

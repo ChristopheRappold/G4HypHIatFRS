@@ -1,9 +1,9 @@
 # The parameters input file for HypHiMC programm
 # please use "#" as a beginning of the comment line
 #--------------------------------------------------------------------
-PhysicsListName NewHypHIFrsList
+#PhysicsListName NewHypHIFrsList
 #PhysicsListName OldHypHIList
-#PhysicsListName G4Default_FTFP_BERT
+PhysicsListName G4Default_FTFP_BERT
 #--------------------------------------------------------------------
 #Beam_* section
 #Beam_Type alpha
@@ -11,12 +11,14 @@ PhysicsListName NewHypHIFrsList
 Beam_Type lambda
 #Beam_Type proton
 #Beam_KineticEnergy 1.7 GeV
-Beam_KineticEnergy 2.0 GeV 
+Beam_KineticEnergy 1.90 GeV 
 Beam_SpotSizeSigma 1.0 cm
 Beam_MomentumDirectionX 0.0
 Beam_MomentumDirectionY 0.0
 Beam_MomentumDirectionZ 1.0
-
+RandomizePos 1
+#RandomizeEnergy 1
+RandomizeDirection 1
 #--------------------------------------------------------------------
 # CutValue_* section
 CutValue_Default 10.00 mm
@@ -59,7 +61,8 @@ Geometry_WorldDimY     5 m
 Geometry_WorldDimZ    10 m
 # SKS magnet field
 Geometry_SKSField1 0.8 
-Geometry_SKSField2 14.8
+Geometry_SKSField2 20
+#Geometry_SKSField2 14.8
 
 # Target ............................................................
 Geometry_TargetMaterial C
