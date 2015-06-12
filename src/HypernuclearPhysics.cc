@@ -79,12 +79,14 @@ void HypernuclearPhysics::ConstructParticle()
   h3l->setBR(vecBR);
   h3l->setLT(Par.Get_HyperNuclei_H3L_T12());
 
-  vecBR.resize(5);
+  vecBR.resize(7);
   vecBR[0] = Par.Get_HyperNuclei_He4L_br_mode1();
   vecBR[1] = Par.Get_HyperNuclei_He4L_br_mode2();
   vecBR[2] = Par.Get_HyperNuclei_He4L_br_mode3();
   vecBR[3] = Par.Get_HyperNuclei_He4L_br_mode4();
   vecBR[4] = Par.Get_HyperNuclei_He4L_br_mode5();
+  vecBR[5] = Par.Get_HyperNuclei_He4L_br_mode6();
+  vecBR[6] = Par.Get_HyperNuclei_He4L_br_mode7();
   he4l->setBR(vecBR);
   he4l->setLT(Par.Get_HyperNuclei_He4L_T12());
 
