@@ -437,7 +437,9 @@ G4ParticleDefinition* HypHIFrsPrimaryGeneratorAction::GetParticle(const G4String
 	}
       else if(particleName=="H3L")
 	{
-	  particle = pTableIon->GetIon(1,3,1,0.);
+	  particle = pTable->FindParticle("H3L");
+	  //particle = pTableIon->GetIon(1,3,1,0.);
+	  particle->DumpTable();
 	  if(particle)
 	    return particle;
 	  else
@@ -450,7 +452,53 @@ G4ParticleDefinition* HypHIFrsPrimaryGeneratorAction::GetParticle(const G4String
 	}
       else if(particleName=="H4L")
 	{
-	  particle = pTableIon->GetIon(1,4,1,0.);
+	  particle = pTable->FindParticle("H4L");
+	  //particle = pTableIon->GetIon(1,4,1,0.);
+	  particle->DumpTable();
+	  if(particle)
+	    return particle;
+	  else
+	    {
+	      std::cout << "!> Fatal error!\n";
+	      std::cout << "!>    Cannot create the ion ";
+	      std::cout << particleName << "\n";
+	      std::exit(1);
+	    }
+	}
+      else if(particleName=="He4L")
+	{
+	  particle = pTable->FindParticle("He4L");
+	  //particle = pTableIon->GetIon(1,4,1,0.);
+	  particle->DumpTable();
+	  if(particle)
+	    return particle;
+	  else
+	    {
+	      std::cout << "!> Fatal error!\n";
+	      std::cout << "!>    Cannot create the ion ";
+	      std::cout << particleName << "\n";
+	      std::exit(1);
+	    }
+	}
+      else if(particleName=="He5L")
+	{
+	  particle = pTable->FindParticle("He5L");
+	  //particle = pTableIon->GetIon(1,4,1,0.);
+	  particle->DumpTable();
+	  if(particle)
+	    return particle;
+	  else
+	    {
+	      std::cout << "!> Fatal error!\n";
+	      std::cout << "!>    Cannot create the ion ";
+	      std::cout << particleName << "\n";
+	      std::exit(1);
+	    }
+	}
+      else if(particleName=="nnL")
+	{
+	  particle = pTable->FindParticle("nnL");
+	  //particle = pTableIon->GetIon(1,4,1,0.);
 	  particle->DumpTable();
 	  if(particle)
 	    return particle;
