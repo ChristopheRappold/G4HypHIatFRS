@@ -87,6 +87,8 @@
 #include "G4EmStandardPhysics.hh"
 //#include "GammaPhysics.hh"
 
+#include "HypernuclearPhysicsList.hh"
+
 //#include "EmStandardPhysics.hh"
 #include "G4DecayPhysics.hh"
 #include "G4RadioactiveDecayPhysics.hh"
@@ -126,6 +128,7 @@ HypHIFrsPhysicsList::HypHIFrsPhysicsList(const THypHi_Par& _par) : G4VModularPhy
   //RegisterPhysics( new G4StoppingPhysics());
   RegisterPhysics( new G4HadronPhysicsQGSP_BIC());
 
+  RegisterPhysics( new HypernuclearPhysicsList("Hypernuclear",Par));
 
     
   // Gamma-Nuclear Physics
