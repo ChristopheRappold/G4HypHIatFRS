@@ -65,8 +65,8 @@ TH4L* TH4L::Definition()
     // G4Triton::TritonDefinition();
     // G4Deuteron::DeuteronDefinition();
     G4DecayTable * decayTable = new G4DecayTable();
-    G4VDecayChannel* mode_1 = new G4PhaseSpaceDecayChannel("H4L",1.*(1.-0.735),3,"pi0","triton","neutron");
-    G4VDecayChannel* mode_2 = new G4PhaseSpaceDecayChannel("H4L",0.690*0.735,2,"pi-","alpha");
+    G4VDecayChannel* mode_1 = new G4PhaseSpaceDecayChannel("H4L",0.690*0.735,2,"pi-","alpha");
+    G4VDecayChannel* mode_2 = new G4PhaseSpaceDecayChannel("H4L",1.*(1.-0.735),3,"pi0","triton","neutron");
     G4VDecayChannel* mode_3 = new G4PhaseSpaceDecayChannel("H4L",0.260*0.735,3,"pi-","triton","proton");
     G4VDecayChannel* mode_4 = new G4PhaseSpaceDecayChannel("H4L",0.049*0.735,3,"pi-","deuteron","deuteron");
     G4VDecayChannel* mode_5 = new G4PhaseSpaceDecayChannel("H4L",0.001*0.735,3,"pi-","He3","neutron");
