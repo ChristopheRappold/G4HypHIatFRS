@@ -35,13 +35,20 @@
 #include "G4ParticleTypes.hh"
 #include "G4Track.hh"
 #include "G4ios.hh"
-
+//#include "HypernuclearPhysics.hh"
 #include "G4SystemOfUnits.hh"
+
+#include "TH3L.hh"
+#include "TH4L.hh"
+#include "THe4L.hh"
+#include "THe5L.hh"
+#include "TTritonStar.hh"
+#include "TnnL.hh"
+
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-HypHIFrsStackingAction::HypHIFrsStackingAction()
-  : G4UserStackingAction()
+HypHIFrsStackingAction::HypHIFrsStackingAction() : G4UserStackingAction()
 
 {}
 
@@ -55,23 +62,25 @@ HypHIFrsStackingAction::~HypHIFrsStackingAction()
 G4ClassificationOfNewTrack
 HypHIFrsStackingAction::ClassifyNewTrack(const G4Track * aTrack)
 {
-  if(aTrack->GetDefinition() == G4Lambda::Definition())
-  { 
-    // G4cout<<" Stacking ClassifyNewTrack:"<<G4endl;
-    // G4cout<<"Find Lambda :"<<aTrack->GetTrackID()<<G4endl;
-    G4int mother_id = aTrack->GetTrackID();
-    const G4DynamicParticle* tempParticle = aTrack->GetDynamicParticle(); 
-    tempParticle->DumpInfo();
-    // G4cout<<" Vtx Position"<<aTrack->GetPosition()<<G4endl;
-    // G4cout<<" Time :"<<aTrack->GetProperTime()/ns<<" "<<" "<<aTrack->GetLocalTime()/ns<<" "<<aTrack->GetGlobalTime()/ns<<G4endl;
-    
-    std::map<G4int,Daugthers_Info>::const_iterator it_mother = mother_daugthersInfo.find(mother_id);
-    if(it_mother==mother_daugthersInfo.end())
-      {
-	Daugthers_Info newInfo;
-	mother_daugthersInfo.insert(std::pair<G4int,Daugthers_Info>(mother_id,newInfo));
-      }
-  }
+  G4ParticleDefinition* def = aTrack->GetDefinition();
+  if( def == G4Lambda::Definition() || def == TH3L::Definition() || def == TH4L::Definition() || def == THe4L::Definition() || 
+      def == THe5L::Definition() || def == TnnL::Definition() || def == TTritonStar::Definition())
+    { 
+      // G4cout<<" Stacking ClassifyNewTrack:"<<G4endl;
+      // G4cout<<"Find Lambda :"<<aTrack->GetTrackID()<<G4endl;
+      G4int mother_id = aTrack->GetTrackID();
+      const G4DynamicParticle* tempParticle = aTrack->GetDynamicParticle(); 
+      tempParticle->DumpInfo();
+      // G4cout<<" Vtx Position"<<aTrack->GetPosition()<<G4endl;
+      // G4cout<<" Time :"<<aTrack->GetProperTime()/ns<<" "<<" "<<aTrack->GetLocalTime()/ns<<" "<<aTrack->GetGlobalTime()/ns<<G4endl;
+      
+      std::map<G4int,Daugthers_Info>::const_iterator it_mother = mother_daugthersInfo.find(mother_id);
+      if(it_mother==mother_daugthersInfo.end())
+	{
+	  Daugthers_Info newInfo;
+	  mother_daugthersInfo.insert(std::pair<G4int,Daugthers_Info>(mother_id,newInfo));
+	}
+    }
   
   if(aTrack->GetParentID()>0)
     {
@@ -95,6 +104,7 @@ HypHIFrsStackingAction::ClassifyNewTrack(const G4Track * aTrack)
 		  it_mother->second.mass_daughters.push_back(tempParticle->GetMass());
 		  it_mother->second.name_daughters.push_back(tempParticle->GetParticleDefinition()->GetParticleName());
 		  it_mother->second.charge_daughters.push_back(tempParticle->GetCharge());
+		  it_mother->second.trackID_daughters.push_back(aTrack->GetTrackID());
 		}
 	      else
 		{
@@ -107,7 +117,7 @@ HypHIFrsStackingAction::ClassifyNewTrack(const G4Track * aTrack)
 		  it_mother->second.mass_daughters.push_back(tempParticle->GetMass());
 		  it_mother->second.name_daughters.push_back(tempParticle->GetParticleDefinition()->GetParticleName());
 		  it_mother->second.charge_daughters.push_back(tempParticle->GetCharge());
-
+		  it_mother->second.trackID_daughters.push_back(aTrack->GetTrackID());
 		}
 	    }
 	}

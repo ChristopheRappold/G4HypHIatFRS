@@ -189,21 +189,44 @@ void HypHIFrsRunData::FillPerEvent(const G4Event* event)
 
 	      for(unsigned int idDaug = 0 ; idDaug < tempDaugther.name_daughters.size(); ++idDaug)
 		{
-		  fEvent->DaughterNames.push_back(tempDaugther.name_daughters[idDaug]);
-		  fEvent->DaughterMasses.push_back(tempDaugther.mass_daughters[idDaug]/GeV);
-		  fEvent->DaughterCharges.push_back(tempDaugther.charge_daughters[idDaug]);
-		  fEvent->DaughterMomentums_X.push_back(tempDaugther.mom_daughters[idDaug].x()/GeV);
-		  fEvent->DaughterMomentums_Y.push_back(tempDaugther.mom_daughters[idDaug].y()/GeV);
-		  fEvent->DaughterMomentums_Z.push_back(tempDaugther.mom_daughters[idDaug].z()/GeV);
-
-		  fEvent->MotherMomentumAtDecay_X += tempDaugther.mom_daughters[idDaug].x()/GeV;
-		  fEvent->MotherMomentumAtDecay_Y += tempDaugther.mom_daughters[idDaug].y()/GeV;
-		  fEvent->MotherMomentumAtDecay_Z += tempDaugther.mom_daughters[idDaug].z()/GeV;
+		  int tempTrackID = tempDaugther.trackID_daughters[idDaug];
+		  bool isAChain = stackingUser->Get_MotherInfo(tempTrackID);
+		  if(isAChain==false)
+		    {
+		      fEvent->DaughterNames.push_back(tempDaugther.name_daughters[idDaug]);
+		      fEvent->DaughterMasses.push_back(tempDaugther.mass_daughters[idDaug]/GeV);
+		      fEvent->DaughterCharges.push_back(tempDaugther.charge_daughters[idDaug]);
+		      fEvent->DaughterMomentums_X.push_back(tempDaugther.mom_daughters[idDaug].x()/GeV);
+		      fEvent->DaughterMomentums_Y.push_back(tempDaugther.mom_daughters[idDaug].y()/GeV);
+		      fEvent->DaughterMomentums_Z.push_back(tempDaugther.mom_daughters[idDaug].z()/GeV);
+		      fEvent->DaughterTrackID.push_back(tempDaugther.trackID_daughters[idDaug]);
+		  
+		      fEvent->MotherMomentumAtDecay_X += tempDaugther.mom_daughters[idDaug].x()/GeV;
+		      fEvent->MotherMomentumAtDecay_Y += tempDaugther.mom_daughters[idDaug].y()/GeV;
+		      fEvent->MotherMomentumAtDecay_Z += tempDaugther.mom_daughters[idDaug].z()/GeV;
+		    }
+		  else
+		    {
+		      const Daugthers_Info tempDaugther2 = stackingUser->Get_DaugthersInfo(tempTrackID);
+		      for(unsigned int idDaug2 = 0 ; idDaug2 < tempDaugther2.name_daughters.size(); ++idDaug2)
+			{
+			  fEvent->DaughterNames.push_back(tempDaugther2.name_daughters[idDaug2]);
+			  fEvent->DaughterMasses.push_back(tempDaugther2.mass_daughters[idDaug2]/GeV);
+			  fEvent->DaughterCharges.push_back(tempDaugther2.charge_daughters[idDaug2]);
+			  fEvent->DaughterMomentums_X.push_back(tempDaugther2.mom_daughters[idDaug2].x()/GeV);
+			  fEvent->DaughterMomentums_Y.push_back(tempDaugther2.mom_daughters[idDaug2].y()/GeV);
+			  fEvent->DaughterMomentums_Z.push_back(tempDaugther2.mom_daughters[idDaug2].z()/GeV);
+			  fEvent->DaughterTrackID.push_back(tempDaugther2.trackID_daughters[idDaug2]);
+			  
+			  fEvent->MotherMomentumAtDecay_X += tempDaugther2.mom_daughters[idDaug2].x()/GeV;
+			  fEvent->MotherMomentumAtDecay_Y += tempDaugther2.mom_daughters[idDaug2].y()/GeV;
+			  fEvent->MotherMomentumAtDecay_Z += tempDaugther2.mom_daughters[idDaug2].z()/GeV;
+			}
+		    }
 		}
 	    }
 	}
     }
-
 
   G4HCofThisEvent* hce = event->GetHCofThisEvent();
   if (!hce) 
