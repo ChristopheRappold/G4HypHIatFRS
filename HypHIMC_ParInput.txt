@@ -1,14 +1,14 @@
 # The parameters input file for HypHiMC programm
 # please use "#" as a beginning of the comment line
 #--------------------------------------------------------------------
-#PhysicsListName NewHypHIFrsList
+PhysicsListName NewHypHIFrsList
 #PhysicsListName OldHypHIList
-PhysicsListName G4Default_FTFP_BERT
+#PhysicsListName G4Default_FTFP_BERT
 #--------------------------------------------------------------------
 #Beam_* section
 #Beam_Type alpha
 #Beam_KineticEnergy 8.0 GeV
-Beam_Type lambda
+Beam_Type nnL
 #Beam_Type proton
 #Beam_KineticEnergy 1.7 GeV
 Beam_KineticEnergy 1.90 GeV 
@@ -33,24 +33,32 @@ HyperNuclei_H4L_br_mode1 0
 HyperNuclei_H4L_br_mode2 1
 HyperNuclei_H4L_br_mode3 0
 HyperNuclei_H4L_br_mode4 0
+HyperNuclei_H4L_br_mode5 0
 # H3L
 #HyperNuclei_H3L_T12      0.246 ns
 HyperNuclei_H3L_T12      0.2632 ns
-HyperNuclei_H3L_br_mode1 1
-HyperNuclei_H3L_br_mode2 0
+HyperNuclei_H3L_br_mode1 0
+HyperNuclei_H3L_br_mode2 1
 HyperNuclei_H3L_br_mode3 0
 HyperNuclei_H3L_br_mode4 0
 HyperNuclei_H3L_br_mode5 0
 # He4L
 HyperNuclei_He4L_T12      0.256 ns
-HyperNuclei_He4L_br_mode1 0.25
-HyperNuclei_He4L_br_mode2 0.25
-HyperNuclei_He4L_br_mode3 0.25
-HyperNuclei_He4L_br_mode4 0.25
+HyperNuclei_He4L_br_mode1 0
+HyperNuclei_He4L_br_mode2 1
+HyperNuclei_He4L_br_mode3 0
+HyperNuclei_He4L_br_mode4 0
+HyperNuclei_He4L_br_mode5 0
+HyperNuclei_He4L_br_mode6 0
+HyperNuclei_He4L_br_mode7 0
 # He5L
 HyperNuclei_He5L_T12      0.256 ns
 HyperNuclei_He5L_br_mode1 1
 HyperNuclei_He5L_br_mode2 0
+# nnL
+HyperNuclei_nnL_T12      0.256 ns
+HyperNuclei_nnL_br_mode1 1
+HyperNuclei_nnL_br_mode2 0
 
 #--------------------------------------------------------------------
 # Geometry_* section
