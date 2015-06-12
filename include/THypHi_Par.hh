@@ -41,6 +41,7 @@ class THypHi_Par:public TNamed{
     THypHi_DEF_PAR(Double_t,HyperNuclei_H4L_br_mode2);
     THypHi_DEF_PAR(Double_t,HyperNuclei_H4L_br_mode3);
     THypHi_DEF_PAR(Double_t,HyperNuclei_H4L_br_mode4);
+    THypHi_DEF_PAR(Double_t,HyperNuclei_H4L_br_mode5);
     // H3L
     THypHi_DEF_PAR(Double_t,HyperNuclei_H3L_T12);
     THypHi_DEF_PAR(Double_t,HyperNuclei_H3L_br_mode1);
@@ -55,10 +56,17 @@ class THypHi_Par:public TNamed{
     THypHi_DEF_PAR(Double_t,HyperNuclei_He4L_br_mode3);
     THypHi_DEF_PAR(Double_t,HyperNuclei_He4L_br_mode4);
     THypHi_DEF_PAR(Double_t,HyperNuclei_He4L_br_mode5);
-    // He4L
+    THypHi_DEF_PAR(Double_t,HyperNuclei_He4L_br_mode6);
+    THypHi_DEF_PAR(Double_t,HyperNuclei_He4L_br_mode7);
+    // He5L
     THypHi_DEF_PAR(Double_t,HyperNuclei_He5L_T12);
     THypHi_DEF_PAR(Double_t,HyperNuclei_He5L_br_mode1);
     THypHi_DEF_PAR(Double_t,HyperNuclei_He5L_br_mode2);
+    // nnL
+    THypHi_DEF_PAR(Double_t,HyperNuclei_nnL_T12);
+    THypHi_DEF_PAR(Double_t,HyperNuclei_nnL_br_mode1);
+    THypHi_DEF_PAR(Double_t,HyperNuclei_nnL_br_mode2);
+
     /*--- Geometry_* subsection ---*/
     // World
     THypHi_DEF_PAR(std::string,Geometry_WorldMaterial);

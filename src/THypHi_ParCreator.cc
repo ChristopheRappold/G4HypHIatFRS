@@ -97,6 +97,7 @@ void THypHi_ParCreator::Init(std::string InputFileName){
 	READ_ONE_PARAM_float(HyperNuclei_H4L_br_mode2);
 	READ_ONE_PARAM_float(HyperNuclei_H4L_br_mode3);
 	READ_ONE_PARAM_float(HyperNuclei_H4L_br_mode4);
+	READ_ONE_PARAM_float(HyperNuclei_H4L_br_mode5);
 	// H3L
 	READ_ONE_PARAM_DIMENSION_float(HyperNuclei_H3L_T12);
 	READ_ONE_PARAM_float(HyperNuclei_H3L_br_mode1);
@@ -111,10 +112,16 @@ void THypHi_ParCreator::Init(std::string InputFileName){
 	READ_ONE_PARAM_float(HyperNuclei_He4L_br_mode3);
 	READ_ONE_PARAM_float(HyperNuclei_He4L_br_mode4);
 	READ_ONE_PARAM_float(HyperNuclei_He4L_br_mode5);
+	READ_ONE_PARAM_float(HyperNuclei_He4L_br_mode6);
+	READ_ONE_PARAM_float(HyperNuclei_He4L_br_mode7);
 	// He5L
 	READ_ONE_PARAM_DIMENSION_float(HyperNuclei_He5L_T12);
 	READ_ONE_PARAM_float(HyperNuclei_He5L_br_mode1);
 	READ_ONE_PARAM_float(HyperNuclei_He5L_br_mode2);
+	// nnL
+	READ_ONE_PARAM_DIMENSION_float(HyperNuclei_nnL_T12);
+	READ_ONE_PARAM_float(HyperNuclei_nnL_br_mode1);
+	READ_ONE_PARAM_float(HyperNuclei_nnL_br_mode2);
 	//
 	// Geometry_* subsection
 	// World
@@ -306,28 +313,35 @@ void THypHi_ParCreator::SetDafaultValues(){
     /*--- HyperNuclei_* subsection ---*/
     // H4L
     SET_PARAMETER(HyperNuclei_H4L_T12,0.194*ns);
-    SET_PARAMETER(HyperNuclei_H4L_br_mode1,0.25);
-    SET_PARAMETER(HyperNuclei_H4L_br_mode2,0.25);
-    SET_PARAMETER(HyperNuclei_H4L_br_mode3,0.25);
-    SET_PARAMETER(HyperNuclei_H4L_br_mode4,0.25);
+    SET_PARAMETER(HyperNuclei_H4L_br_mode1,0.2);
+    SET_PARAMETER(HyperNuclei_H4L_br_mode2,0.2);
+    SET_PARAMETER(HyperNuclei_H4L_br_mode3,0.2);
+    SET_PARAMETER(HyperNuclei_H4L_br_mode4,0.2);
+    SET_PARAMETER(HyperNuclei_H4L_br_mode5,0.2);
     // H3L
     SET_PARAMETER(HyperNuclei_H3L_T12,0.246*ns);
     SET_PARAMETER(HyperNuclei_H3L_br_mode1,0.2);
     SET_PARAMETER(HyperNuclei_H3L_br_mode2,0.2);
     SET_PARAMETER(HyperNuclei_H3L_br_mode3,0.2);
     SET_PARAMETER(HyperNuclei_H3L_br_mode4,0.2);
-    SET_PARAMETER(HyperNuclei_H3L_br_mode4,0.2);
+    SET_PARAMETER(HyperNuclei_H3L_br_mode5,0.2);
     // He4L
     SET_PARAMETER(HyperNuclei_He4L_T12,0.256*ns);
-    SET_PARAMETER(HyperNuclei_He4L_br_mode1,0.2);
-    SET_PARAMETER(HyperNuclei_He4L_br_mode2,0.2);
-    SET_PARAMETER(HyperNuclei_He4L_br_mode3,0.2);
-    SET_PARAMETER(HyperNuclei_He4L_br_mode4,0.2);
-    SET_PARAMETER(HyperNuclei_He4L_br_mode5,0.2);
+    SET_PARAMETER(HyperNuclei_He4L_br_mode1,1./7.);
+    SET_PARAMETER(HyperNuclei_He4L_br_mode2,1./7.);
+    SET_PARAMETER(HyperNuclei_He4L_br_mode3,1./7.);
+    SET_PARAMETER(HyperNuclei_He4L_br_mode4,1./7.);
+    SET_PARAMETER(HyperNuclei_He4L_br_mode5,1./7.);
+    SET_PARAMETER(HyperNuclei_He4L_br_mode6,1./7.);
+    SET_PARAMETER(HyperNuclei_He4L_br_mode7,1./7.);
     // He5L
     SET_PARAMETER(HyperNuclei_He5L_T12,0.256*ns);
-    SET_PARAMETER(HyperNuclei_He5L_br_mode1,0.25);
-    SET_PARAMETER(HyperNuclei_He5L_br_mode2,0.25);
+    SET_PARAMETER(HyperNuclei_He5L_br_mode1,0.5);
+    SET_PARAMETER(HyperNuclei_He5L_br_mode2,0.5);
+    // He5L
+    SET_PARAMETER(HyperNuclei_nnL_T12,0.190*ns);
+    SET_PARAMETER(HyperNuclei_nnL_br_mode1,0.5);
+    SET_PARAMETER(HyperNuclei_nnL_br_mode2,0.5);
     /*--- Geometry_* subsection ---*/
     // World
     SET_PARAMETER(Geometry_WorldMaterial,"Air");
