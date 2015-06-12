@@ -36,7 +36,7 @@ public: // Primary decay vertex
   std::vector<Double_t> DaughterMomentums_X;
   std::vector<Double_t> DaughterMomentums_Y;
   std::vector<Double_t> DaughterMomentums_Z;
-  std::vector<Int_t> DaugtherTrackID;
+  std::vector<Int_t> DaughterTrackID;
   //
   // beam composition
   std::vector<std::string> BeamNames;

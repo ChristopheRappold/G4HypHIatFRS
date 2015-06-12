@@ -36,7 +36,7 @@ void THypHi_Event::Zero(){
     DaughterMomentums_X.resize(0);
     DaughterMomentums_Y.resize(0);
     DaughterMomentums_Z.resize(0);
-    DaugtherTrackID.resize(0);
+    DaughterTrackID.resize(0);
     //
     // beam composition
     BeamNames.resize(0);
