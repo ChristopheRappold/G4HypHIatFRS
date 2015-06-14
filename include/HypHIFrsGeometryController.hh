@@ -36,6 +36,7 @@
 #include "globals.hh"
 #include "G4String.hh"
 #include "G4VUserDetectorConstruction.hh"
+#include "HypHIVDetectorConstruction.hh"
 #include "THypHi_Par.hh"
 
 /**
@@ -55,12 +56,13 @@ public:
    * Select a geometry by name.
    */
   void SetGeometry(G4String);
+  const std::vector<G4String>& GetNameDetectors();
 
 private:
-  void registerGeometry(G4VUserDetectorConstruction *detector);
+  void registerGeometry(G4VUserDetectorConstruction *det);
 
   const THypHi_Par& Par;
-
+  HypHIVDetectorConstruction *detectorBuilder;
 };
 
 
