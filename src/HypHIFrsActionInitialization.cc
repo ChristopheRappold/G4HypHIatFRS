@@ -37,7 +37,7 @@
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-HypHIFrsActionInitialization::HypHIFrsActionInitialization (HypHIFrsDetectorConstruction* detConstruction, const THypHi_Par& ConfFile, const G4String& Out, bool In) : G4VUserActionInitialization(),fDetConstruction(detConstruction),Par(ConfFile),OutputFile(Out),InputCIN(In)
+HypHIFrsActionInitialization::HypHIFrsActionInitialization (HypHIFrsGeometryController* geoControl, const THypHi_Par& ConfFile, const G4String& Out, bool In) : G4VUserActionInitialization(),fGeoController(geoControl),Par(ConfFile),OutputFile(Out),InputCIN(In)
 {
 
   
@@ -53,7 +53,7 @@ HypHIFrsActionInitialization::~HypHIFrsActionInitialization()
 
 void HypHIFrsActionInitialization::BuildForMaster() const
 {
-  SetUserAction(new HypHIFrsRunAction(OutputFile,fDetConstruction->NameDetectorsSD));
+  SetUserAction(new HypHIFrsRunAction(OutputFile, fGeoController->GetNameDetectors()));
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -62,9 +62,9 @@ void HypHIFrsActionInitialization::Build() const
 {
   SetUserAction(new HypHIFrsPrimaryGeneratorAction(Par,InputCIN));
 
-  SetUserAction(new HypHIFrsRunAction(OutputFile,fDetConstruction->NameDetectorsSD));
+  SetUserAction(new HypHIFrsRunAction(OutputFile, fGeoController->GetNameDetectors()));
   
-  HypHIFrsEventAction* eventAction = new HypHIFrsEventAction(fDetConstruction->NameDetectorsSD);
+  HypHIFrsEventAction* eventAction = new HypHIFrsEventAction( fGeoController->GetNameDetectors());
   SetUserAction(eventAction);
 
   SetUserAction(new HypHIFrsStackingAction());

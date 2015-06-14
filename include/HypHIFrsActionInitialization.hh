@@ -33,6 +33,7 @@
 
 #include "globals.hh"
 #include "G4VUserActionInitialization.hh"
+#include "HypHIFrsGeometryController.hh"
 #include "THypHi_Par.hh"
 
 
@@ -44,14 +45,14 @@ class THypHi_Par;
 class HypHIFrsActionInitialization : public G4VUserActionInitialization
 {
 public:
-  HypHIFrsActionInitialization(HypHIFrsDetectorConstruction*, const THypHi_Par&, const G4String&, bool = false);
+  HypHIFrsActionInitialization(HypHIFrsGeometryController*, const THypHi_Par&, const G4String&, bool = false);
   virtual ~HypHIFrsActionInitialization();
   
   virtual void BuildForMaster() const;
   virtual void Build() const;
-  
+ 
 private:
-  HypHIFrsDetectorConstruction* fDetConstruction;
+  HypHIFrsGeometryController* fGeoController;
   const THypHi_Par& Par;
   G4String OutputFile;
   bool InputCIN;
