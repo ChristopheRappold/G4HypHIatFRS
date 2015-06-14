@@ -52,15 +52,18 @@ void HypHIFrsGeometryController::SetGeometry(G4String name)
   G4cout <<"Activating geometry " << name << G4endl;
   if(name == "HypHIFrs")
     {
-      registerGeometry(new HypHIFrsDetectorConstruction());
+      detectorBuilder = new HypHIFrsDetectorConstruction(Par); 
+      registerGeometry(detectorBuilder);
     }
   else if(name == "Phase0")
     {
-      registerGeometry(new HypHIPhase0DetectorConstruction());
+      detectorBuilder = new HypHIPhase0DetectorConstruction(Par);
+      registerGeometry(detectorBuilder);
     }
   else if(name == "Phase0.5")
     {
-      registerGeometry(new HypHIFrsPhase0DetectorConstruction());
+      detectorBuilder = new HypHIPhase0DetectorConstruction(Par);
+      registerGeometry(detectorBuilder);
     }
   else
     {
@@ -76,3 +79,7 @@ void HypHIFrsGeometryController::registerGeometry(G4VUserDetectorConstruction *d
   runManager -> GeometryHasBeenModified();
 }
 
+const std::vector<G4String>& HypHIFrsGeometryController::GetNameDetectors()
+{
+  return detectorBuilder->GetNameDetectors();
+}
