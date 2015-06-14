@@ -86,7 +86,7 @@ G4ThreadLocal HypHIFrsMagneticField* HypHIFrsDetectorConstruction::SksFieldinRoo
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-HypHIFrsDetectorConstruction::HypHIFrsDetectorConstruction(const THypHi_Par& _par) : G4VUserDetectorConstruction(), fCheckOverlaps(true), Par(_par)
+HypHIFrsDetectorConstruction::HypHIFrsDetectorConstruction(const THypHi_Par& _par) : HypHIVDetectorConstruction(_par), fCheckOverlaps(true)
 {}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -97,22 +97,22 @@ HypHIFrsDetectorConstruction::HypHIFrsDetectorConstruction(const THypHi_Par& _pa
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-G4LogicalVolume* FindVolume(const G4String& name)
-{
-  G4LogicalVolumeStore* lvStore = G4LogicalVolumeStore::GetInstance();
+// G4LogicalVolume* HypHIFrsDetectorConstruction::FindVolume(const G4String& name)
+// {
+//   G4LogicalVolumeStore* lvStore = G4LogicalVolumeStore::GetInstance();
   
-  for (G4int i=0; i<G4int(lvStore->size()); i++) 
-    {
-      G4LogicalVolume* lv = (*lvStore)[i];
-      if (lv->GetName() == name) 
-	return lv;
-    }
+//   for (G4int i=0; i<G4int(lvStore->size()); i++) 
+//     {
+//       G4LogicalVolume* lv = (*lvStore)[i];
+//       if (lv->GetName() == name) 
+// 	return lv;
+//     }
 
-  G4String text = "ExN03DetectorConstruction:: FindVolume:\n"; 
-  text = text + "    Logical volume " + name + " does not exist.";
-  std::cerr << text << G4endl;
-  return 0;
-}  	       	         
+//   G4String text = "ExN03DetectorConstruction:: FindVolume:\n"; 
+//   text = text + "    Logical volume " + name + " does not exist.";
+//   std::cerr << text << G4endl;
+//   return 0;
+// }  	       	         
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
