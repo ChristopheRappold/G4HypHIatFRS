@@ -195,9 +195,10 @@ int main(int argc,char** argv)
   //
   THypHi_Par* ParameterSet  = Parser.GetParameter();
   
-  HyHIFrsGeometryController *geometryController = new HyHIFrsGeometryController(*ParameterSet);
+  HypHIFrsGeometryController *geometryController = new HypHIFrsGeometryController(*ParameterSet);
 
-  geometryController->SetGeometry("HypHIFrs");
+  //geometryController->SetGeometry("HypHIFrs");
+  geometryController->SetGeometry("Phase0");
   //HypHIFrsDetectorConstruction* detConstruction = new HypHIFrsDetectorConstruction(*ParameterSet);
   //runManager->SetUserInitialization(detConstruction);
   
@@ -221,7 +222,7 @@ int main(int argc,char** argv)
 
   runManager->SetUserInitialization(physicsList);
     
-  HypHIFrsActionInitialization* actionInitialization = new HypHIFrsActionInitialization(detConstruction,*ParameterSet,OutputFileName,Input_CIN);
+  HypHIFrsActionInitialization* actionInitialization = new HypHIFrsActionInitialization(geometryController,*ParameterSet,OutputFileName,Input_CIN);
   runManager->SetUserInitialization(actionInitialization);
 
   // Initialize G4 kernel
