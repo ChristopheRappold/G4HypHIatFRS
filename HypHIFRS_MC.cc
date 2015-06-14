@@ -28,7 +28,8 @@
 /// \file exampleHypHIFrs.cc
 /// \brief Main program of the HypHIFrs example
 
-#include "HypHIFrsDetectorConstruction.hh"
+//#include "HypHIFrsDetectorConstruction.hh"
+#include "HypHIFrsGeometryController.hh"
 #include "HypHIFrsActionInitialization.hh"
 
 #ifdef G4MULTITHREADED
@@ -194,8 +195,11 @@ int main(int argc,char** argv)
   //
   THypHi_Par* ParameterSet  = Parser.GetParameter();
   
-  HypHIFrsDetectorConstruction* detConstruction = new HypHIFrsDetectorConstruction(*ParameterSet);
-  runManager->SetUserInitialization(detConstruction);
+  HyHIFrsGeometryController *geometryController = new HyHIFrsGeometryController(*ParameterSet);
+
+  geometryController->SetGeometry("HypHIFrs");
+  //HypHIFrsDetectorConstruction* detConstruction = new HypHIFrsDetectorConstruction(*ParameterSet);
+  //runManager->SetUserInitialization(detConstruction);
   
   G4VModularPhysicsList* physicsList = 0;
 
@@ -263,10 +267,14 @@ int main(int argc,char** argv)
   // owned and deleted by the run manager, so they should not be deleted 
   // in the main() program !
 
+  delete geometryController;
+
 #ifdef G4VIS_USE
   delete visManager;
 #endif
   delete runManager;
+
+
 
   return 0;
 }
