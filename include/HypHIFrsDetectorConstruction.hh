@@ -31,7 +31,7 @@
 #ifndef HypHIFrsDetectorConstruction_h
 #define HypHIFrsDetectorConstruction_h 1
 
-#include "G4VUserDetectorConstruction.hh"
+#include "HypHIVDetectorConstruction.hh"
 #include "globals.hh"
 #include "HypHIFrsMagneticField.hh"
 #include "THypHi_Par.hh"
@@ -57,32 +57,32 @@ class THypHi_Par;
 /// In addition a transverse uniform magnetic field is defined 
 /// via G4GlobalMagFieldMessenger class.
 
-class HypHIFrsDetectorConstruction : public G4VUserDetectorConstruction
+class HypHIFrsDetectorConstruction : public HypHIVDetectorConstruction
 {
-  public:
-    HypHIFrsDetectorConstruction(const THypHi_Par& _par);
-    virtual ~HypHIFrsDetectorConstruction();
+public:
+  HypHIFrsDetectorConstruction(const THypHi_Par& _par);
+  virtual ~HypHIFrsDetectorConstruction();
 
-  public:
-    virtual G4VPhysicalVolume* Construct();
-    virtual void ConstructSDandField();
-
-  std::vector<G4String> NameDetectorsSD;
-     
-  private:
-    // methods
-    //
-    void DefineMaterials();
-    G4VPhysicalVolume* DefineVolumes();
+public:
+  virtual G4VPhysicalVolume* Construct();
+  virtual void ConstructSDandField();
   
-    // data members
-    //
+  //std::vector<G4String> NameDetectorsSD;
+     
+private:
+  // methods
+  //
+  void DefineMaterials();
+  G4VPhysicalVolume* DefineVolumes();
+  //G4LogicalVolume* FindVolume(const G4String& name);  
+  // data members
+  //
   static G4ThreadLocal HypHIFrsMagneticField*  SksFieldinRoot; 
   // magnetic field messenger
        
   G4bool  fCheckOverlaps; // option to activate checking of volumes overlaps
   
-  const THypHi_Par& Par;
+  //const THypHi_Par& Par;
   
 };
 
