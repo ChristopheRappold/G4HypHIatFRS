@@ -243,17 +243,22 @@ void HypHIFrsPhysicsList::SetCuts()
   //
   // Setting cuts for Plastic detectros
   reg = G4RegionStore::GetInstance()->GetRegion("DetectorRegion");
-  cuts = new G4ProductionCuts;
-  cuts->SetProductionCut(Par.Get_CutValue_Plastic());
-  reg->SetProductionCuts(cuts);
+  if(reg != nullptr)
+    {
+      cuts = new G4ProductionCuts;
+      cuts->SetProductionCut(Par.Get_CutValue_Plastic());
+      reg->SetProductionCuts(cuts);
+    }
   //
 
   // Setting cuts for Target
   reg = G4RegionStore::GetInstance()->GetRegion("TargetRegion");
-  cuts = new G4ProductionCuts;
-  cuts->SetProductionCut(Par.Get_CutValue_Target());
-  reg->SetProductionCuts(cuts);
-
+  if(reg!=nullptr)
+    {
+      cuts = new G4ProductionCuts;
+      cuts->SetProductionCut(Par.Get_CutValue_Target());
+      reg->SetProductionCuts(cuts);
+    }
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
