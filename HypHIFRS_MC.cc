@@ -45,6 +45,7 @@
 #include "THypHi_PhysicsList.hh"
 #include "G4StepLimiterPhysics.hh"
 
+#include "HypernuclearPhysics.hh"
 
 #include "Randomize.hh"
 
@@ -197,8 +198,8 @@ int main(int argc,char** argv)
   
   HypHIFrsGeometryController *geometryController = new HypHIFrsGeometryController(*ParameterSet);
 
-  //geometryController->SetGeometry("HypHIFrs");
-  geometryController->SetGeometry("Phase0");
+  geometryController->SetGeometry("HypHIFrs");
+  //geometryController->SetGeometry("Phase0");
   //HypHIFrsDetectorConstruction* detConstruction = new HypHIFrsDetectorConstruction(*ParameterSet);
   //runManager->SetUserInitialization(detConstruction);
   
@@ -209,6 +210,7 @@ int main(int argc,char** argv)
     {
       physicsList = new FTFP_BERT;
       physicsList->RegisterPhysics(new G4StepLimiterPhysics());
+      physicsList->RegisterPhysics(new HypernuclearPhysics("Hypernuclear",*ParameterSet));
     }
   else if(namePhys == "NewHypHIFrsList")
     physicsList = new HypHIFrsPhysicsList(*ParameterSet);
