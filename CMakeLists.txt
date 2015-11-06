@@ -6,17 +6,23 @@
 cmake_minimum_required(VERSION 2.8.3 FATAL_ERROR)
 project(HYPHIFRS_MC)
 
-#include(CheckCXXCompilerFlag)
-#SET(CPP_STANDARD c++11)
+include(CheckCXXCompilerFlag)
+#SET(CPP_STANDARD c++14)
+
+SET(Geant4VMC_DIR $ENV{G4VMC}/lib/Geant4VMC-3.1.1)
+SET(MTRoot_DIR $ENV{G4VMC}/lib/MTRoot-3.1.1)
+SET(VGM_DIR $ENV{VGM_INSTALL}/lib/VGM-4.2.0)
+
 
 #----------------------------------------------------------------------------
 # Set path to Find modules in VGM
 #
 set(CMAKE_MODULE_PATH 
-    ${Geant4VMC_DIR}/Modules
-    ${VGM_DIR}/Modules
-    ${CMAKE_MODULE_PATH}) 
+  ${Geant4VMC_DIR}/Modules
+  ${VGM_DIR}/Modules
+  ${CMAKE_MODULE_PATH}) 
 
+message(STATUS ${CMAKE_MODULE_PATH})
 #----------------------------------------------------------------------------
 # Find VGM package
 if (NOT VGM_FOUND)
