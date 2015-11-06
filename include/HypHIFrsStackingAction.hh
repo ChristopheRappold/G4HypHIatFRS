@@ -37,6 +37,7 @@
 
 #include <vector>
 #include <unordered_map>
+#include <tuple>
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 struct Daugthers_Info
@@ -79,7 +80,7 @@ public:
 private:
   
   std::unordered_map<G4int,Daugthers_Info> mother_daugthersInfo;
-  
+  std::unordered_map<G4int,std::vector<std::tuple<double,double> > > optic_lines;
   
 
 };

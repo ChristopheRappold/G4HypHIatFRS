@@ -74,7 +74,7 @@ HypHIFrsStackingAction::ClassifyNewTrack(const G4Track * aTrack)
       // G4cout<<" Vtx Position"<<aTrack->GetPosition()<<G4endl;
       // G4cout<<" Time :"<<aTrack->GetProperTime()/ns<<" "<<" "<<aTrack->GetLocalTime()/ns<<" "<<aTrack->GetGlobalTime()/ns<<G4endl;
       
-      std::map<G4int,Daugthers_Info>::const_iterator it_mother = mother_daugthersInfo.find(mother_id);
+      auto it_mother = mother_daugthersInfo.find(mother_id);
       if(it_mother==mother_daugthersInfo.end())
 	{
 	  Daugthers_Info newInfo;
@@ -87,7 +87,7 @@ HypHIFrsStackingAction::ClassifyNewTrack(const G4Track * aTrack)
       //G4cout<<"Process :"<<aTrack->GetCreatorProcess()->GetProcessName()<<G4endl;
       if(aTrack->GetCreatorProcess()->GetProcessName()=="Decay")
 	{
-	  std::map<G4int,Daugthers_Info>::iterator it_mother = mother_daugthersInfo.find(aTrack->GetParentID());
+	  auto it_mother = mother_daugthersInfo.find(aTrack->GetParentID());
 	  
 	  if(it_mother!=mother_daugthersInfo.end())
 	    { // particle is secondary
@@ -154,7 +154,7 @@ void HypHIFrsStackingAction::PrepareNewEvent()
 
 bool HypHIFrsStackingAction::Get_MotherInfo(G4int id) const
 {
-  std::map<G4int,Daugthers_Info>::const_iterator it_motherOut = mother_daugthersInfo.find(id);
+  auto it_motherOut = mother_daugthersInfo.find(id);
 
   return it_motherOut != mother_daugthersInfo.end();
 }
@@ -162,7 +162,7 @@ bool HypHIFrsStackingAction::Get_MotherInfo(G4int id) const
 const Daugthers_Info HypHIFrsStackingAction::Get_DaugthersInfo(G4int id) const
 {
 
-  std::map<G4int,Daugthers_Info>::const_iterator it_motherOut = mother_daugthersInfo.find(id);
+  auto it_motherOut = mother_daugthersInfo.find(id);
   if(it_motherOut!=mother_daugthersInfo.end())
     {
       return it_motherOut->second;
