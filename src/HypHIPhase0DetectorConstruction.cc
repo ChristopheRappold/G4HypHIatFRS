@@ -152,13 +152,13 @@ G4VPhysicalVolume* HypHIPhase0DetectorConstruction::Construct()
 
   // Import geometry from Root to VGM
   RootGM::Factory rtFactory;
-  rtFactory.SetDebug(0);
+  rtFactory.SetDebug(1);
   rtFactory.Import(gGeoManager->GetTopNode());
 
   // Export VGM geometry to Geant4
   //
   Geant4GM::Factory g4Factory;
-  g4Factory.SetDebug(0);
+  g4Factory.SetDebug(1);
   rtFactory.Export(&g4Factory);
   
   G4VPhysicalVolume* world = g4Factory.World();
@@ -171,9 +171,9 @@ G4VPhysicalVolume* HypHIPhase0DetectorConstruction::Construct()
   // G4LogicalVolume* VolGapLV = FindVolume("VolGap");
   // G4LogicalVolume* SecondMagFieldLV = FindVolume("SecondMagField");
   // G4LogicalVolume* SecondMagLV = FindVolume("SecondMag");
-  // G4LogicalVolume* SetupLV = FindVolume("Setup");
+  G4LogicalVolume* SetupLV = FindVolume("Setup");
   // G4LogicalVolume* IronQuadLV = FindVolume("IronQuad");
-
+  //G4LogicalVolume* 
   //G4Region* aTargetRegion = new G4Region("TargetRegion");
 
   // G4LogicalVolume* TargetLV = FindVolume("Target");
