@@ -36,7 +36,7 @@
 #include "G4String.hh"
 
 #include <vector>
-#include <map>
+#include <unordered_map>
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 struct Daugthers_Info
@@ -78,7 +78,7 @@ public:
   const Daugthers_Info Get_DaugthersInfo(G4int ) const;
 private:
   
-  std::map<G4int,Daugthers_Info> mother_daugthersInfo;
+  std::unordered_map<G4int,Daugthers_Info> mother_daugthersInfo;
   
   
 
