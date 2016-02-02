@@ -8,7 +8,7 @@
 
 class THypHi_PhysicsList: public G4VModularPhysicsList{
     public:
-	THypHi_PhysicsList(const THypHi_Par& _par);
+  explicit THypHi_PhysicsList(const THypHi_Par& _par);
 	~THypHi_PhysicsList();
     
     protected:

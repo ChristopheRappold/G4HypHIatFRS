@@ -49,7 +49,7 @@
 class HypHIFrsGeometryController
 {
 public:
-  HypHIFrsGeometryController(const THypHi_Par& _par);
+  explicit HypHIFrsGeometryController(const THypHi_Par& _par);
   ~HypHIFrsGeometryController();
 
   /**

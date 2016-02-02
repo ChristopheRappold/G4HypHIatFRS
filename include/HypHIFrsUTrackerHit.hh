@@ -11,9 +11,9 @@ class HypHIFrsUTrackerHit : public G4VHit
 {
   public:
   HypHIFrsUTrackerHit();
-  HypHIFrsUTrackerHit(G4int z);
+  explicit HypHIFrsUTrackerHit(G4int z);
   HypHIFrsUTrackerHit(const HypHIFrsUTrackerHit& hit);
-  ~HypHIFrsUTrackerHit();
+  virtual ~HypHIFrsUTrackerHit();
 
   const HypHIFrsUTrackerHit& operator=(const HypHIFrsUTrackerHit& right);
   int operator==(const HypHIFrsUTrackerHit &right) const;

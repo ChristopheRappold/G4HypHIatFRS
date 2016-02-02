@@ -8,7 +8,7 @@ class UTrackerHit : public TObject
 {
   public:
   UTrackerHit();
-  ~UTrackerHit();
+  virtual ~UTrackerHit();
 
   virtual void Print(const Option_t* = "") const;
   

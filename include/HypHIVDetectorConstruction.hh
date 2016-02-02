@@ -58,7 +58,7 @@ class THypHi_Par;
 class HypHIVDetectorConstruction : public G4VUserDetectorConstruction
 {
 public:
-  HypHIVDetectorConstruction(const THypHi_Par& _par);
+  explicit HypHIVDetectorConstruction(const THypHi_Par& _par);
   virtual ~HypHIVDetectorConstruction();
 
 public:

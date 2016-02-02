@@ -64,7 +64,7 @@ enum {
 class HypHIFrsRunData : public G4Run
 {
 public:
-  HypHIFrsRunData(const G4String& namefile);
+  explicit HypHIFrsRunData(const G4String& namefile);
   virtual ~HypHIFrsRunData();
 
   void FillPerEvent(const G4Event* event);
