@@ -39,8 +39,8 @@
 class HypHIFrsPhysicsList: public G4VModularPhysicsList
 {
   public:
-    HypHIFrsPhysicsList(const THypHi_Par& _par);
-    ~HypHIFrsPhysicsList();
+  explicit HypHIFrsPhysicsList(const THypHi_Par& _par);
+  virtual ~HypHIFrsPhysicsList();
 
   protected:
     // Construct particle and physics process

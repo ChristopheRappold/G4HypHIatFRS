@@ -47,7 +47,7 @@
 class HypHIFrsEventAction : public G4UserEventAction
 {
   public:
-  HypHIFrsEventAction(const std::vector<G4String>& name);
+  explicit HypHIFrsEventAction(const std::vector<G4String>& name);
   virtual ~HypHIFrsEventAction();
   
   virtual void  BeginOfEventAction(const G4Event* event);

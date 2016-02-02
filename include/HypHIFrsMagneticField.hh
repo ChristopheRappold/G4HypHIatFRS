@@ -14,7 +14,7 @@ class G4FieldManager;
 class HypHIFrsMagneticField : public G4MagneticField
 {
     public:
-  HypHIFrsMagneticField(const G4String& namefile_field);
+  explicit HypHIFrsMagneticField(const G4String& namefile_field);
   ~HypHIFrsMagneticField();
   //                                                                                                                                                              
   void GetFieldValue( const  double Point[3], double *Bfield ) const;

@@ -13,7 +13,7 @@ class THypHi_SD_UTracker: public G4VSensitiveDetector{
 public:
   //
   THypHi_SD_UTracker(const G4String& name, const G4String& nameVolPhysm);
-  ~THypHi_SD_UTracker();
+  virtual ~THypHi_SD_UTracker();
   
   G4bool ProcessHits(G4Step*aStep,G4TouchableHistory* rohist);
   virtual void Initialize(G4HCofThisEvent*HCE);

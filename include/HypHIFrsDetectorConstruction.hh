@@ -60,7 +60,7 @@ class THypHi_Par;
 class HypHIFrsDetectorConstruction : public HypHIVDetectorConstruction
 {
 public:
-  HypHIFrsDetectorConstruction(const THypHi_Par& _par);
+  explicit HypHIFrsDetectorConstruction(const THypHi_Par& _par);
   virtual ~HypHIFrsDetectorConstruction();
 
 public:
