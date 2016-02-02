@@ -38,6 +38,9 @@
 #include <vector>
 #include <unordered_map>
 #include <tuple>
+#include <set>
+#include <functional>
+
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 struct Daugthers_Info
@@ -64,6 +67,37 @@ struct Daugthers_Info
   }
 };
 
+// class HashVec
+// {
+//   std::hash<std::string> hashFunc;
+// public :
+//   size_t operator() (const std::vector<int>& a) const
+//   {
+//     std::string nameHash("");
+//     for( auto i : a )
+//       {
+// 	std::string nameHashTemp = std::to_string(i);
+// 	nameHash += nameHashTemp;
+//       }
+//     return hashFunc(nameHash);
+//   }
+
+// };
+
+class HashTuple
+{
+  std::hash<int> hashFunc;
+public :
+  size_t operator() (const std::tuple<int,int>& a) const
+  {
+    return hashFunc(std::get<0,int>(a));
+  }
+
+};
+
+
+
+
 class HypHIFrsStackingAction : public G4UserStackingAction
 {
 public:
@@ -80,8 +114,12 @@ public:
 private:
   
   std::unordered_map<G4int,Daugthers_Info> mother_daugthersInfo;
-  std::unordered_map<G4int,std::vector<std::tuple<double,double> > > optic_lines;
+
+  std::set<G4int> list_PDGSelected;
+  std::unordered_map<std::tuple<int,int>,std::vector<std::tuple<double,double,double,double,double> >, HashTuple > optic_lines; // PID -> graph : pathLength, X, Y, angleXZ, angleYZ 
+
   
+  const G4ThreeVector beamAxis;
 
 };
 

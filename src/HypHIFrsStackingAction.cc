@@ -45,10 +45,14 @@
 #include "TTritonStar.hh"
 #include "TnnL.hh"
 
+#include "TMath.h"
+//#include <tuple>
+//#include <functional>
+
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-HypHIFrsStackingAction::HypHIFrsStackingAction() : G4UserStackingAction()
+HypHIFrsStackingAction::HypHIFrsStackingAction() : G4UserStackingAction(),beamAxis(0,0,1)
 
 {}
 
@@ -82,6 +86,50 @@ HypHIFrsStackingAction::ClassifyNewTrack(const G4Track * aTrack)
 	}
     }
   
+  auto momDir = aTrack->GetMomentumDirection();
+  if(momDir.isNear(beamAxis,1e-8))
+    {
+      int PDG = def->GetPDGEncoding();
+      int Tid = aTrack->GetTrackID();
+      auto optic_key = std::tie<int,int>(Tid,PDG);
+      auto it_ion = optic_lines.find(optic_key);
+      if(it_ion != optic_lines.end())
+	{
+	  auto temp_pos = aTrack->GetPosition();
+	  double TempL = aTrack->GetTrackLength();
+	  double TempXZ = TMath::ATan(momDir.getX()/momDir.getZ());
+	  double TempYZ = TMath::ATan(momDir.getY()/momDir.getZ());
+	  double TempX = temp_pos.getX();
+	  double TempY = temp_pos.getY();
+	  auto new_point = std::tie<double,double,double,double,double>(TempL,TempXZ,TempYZ,TempX,TempY);
+	  it_ion->second.push_back(new_point);
+	}
+      else
+	{
+	  auto it_pdg = list_PDGSelected.find(PDG);
+	  if(it_pdg == list_PDGSelected.end())
+	    {
+	      auto temp_pos = aTrack->GetPosition();
+	      double TempL = aTrack->GetTrackLength();
+	      double TempXZ = TMath::ATan(momDir.getX()/momDir.getZ());
+	      double TempYZ = TMath::ATan(momDir.getY()/momDir.getZ());
+	      double TempX = temp_pos.getX();
+	      double TempY = temp_pos.getY();
+	      auto new_point = std::tie<double,double,double,double,double>(TempL,TempXZ,TempYZ,TempX,TempY);
+	      std::vector<std::tuple<double,double,double,double,double> > temp_vec(1,new_point);
+	      optic_lines.insert(std::pair<std::tuple<int,int>,std::vector<std::tuple<double,double,double,double,double> > >(optic_key,temp_vec));
+	      
+	    }
+	}
+      // G4int PDG = def->GetPDGEncoding();
+      // auto it_PDG = list_PDGSelected.find(PDG);
+      // if(it_PDG != list_PDGSelected.end())
+      // 	{
+      // 	  {
+	    
+      // 	  }
+      // 	}
+    }
   if(aTrack->GetParentID()>0)
     {
       //G4cout<<"Process :"<<aTrack->GetCreatorProcess()->GetProcessName()<<G4endl;
