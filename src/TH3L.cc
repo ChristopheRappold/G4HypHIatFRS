@@ -23,7 +23,7 @@ TH3L* TH3L::theInstance = 0;
 /*******************************************************************/
 TH3L* TH3L::Definition()
 {
-  if (theInstance !=0) return theInstance;
+  if (theInstance !=nullptr) return theInstance;
   //
   G4int    lepton_number = 0;
   G4int    baryon_number = 3;
@@ -47,7 +47,7 @@ TH3L* TH3L::Definition()
   // search in particle table
   G4ParticleTable* pTable = G4ParticleTable::GetParticleTable();
   G4ParticleDefinition* anInstance = pTable->FindParticle(name);
-  if (anInstance==0)
+  if (anInstance==nullptr)
     {
       anInstance = new G4ParticleDefinition(name,mass,width,charge,
 					    spin,parity,C_conjugation,
