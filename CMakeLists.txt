@@ -6,7 +6,7 @@
 cmake_minimum_required(VERSION 2.8.3 FATAL_ERROR)
 project(HYPHIFRS_MC)
 
-SET(CMAKE_VERBOSE_MAKEFILE ON)
+#SET(CMAKE_VERBOSE_MAKEFILE ON)
 
 include(CheckCXXCompilerFlag)
 set(HAVE_ISYSTEM true)
