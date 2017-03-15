@@ -251,19 +251,19 @@ void HypHIFrsRunData::FillPerEvent(const G4Event* event)
 	      UTrackerHit *RootHit = dynamic_cast<UTrackerHit*>(TempCArray->ConstructedAt(TempCArray->GetEntries()));
   	    
 	      RootHit->TrackID = TempHit->TrackID; 
-	      RootHit->HitPosX = TempHit->HitPosX; 
-	      RootHit->HitPosY = TempHit->HitPosY; 
-	      RootHit->HitPosZ = TempHit->HitPosZ; 
-	      RootHit->ExitPosX = TempHit->ExitPosX; 
-	      RootHit->ExitPosY = TempHit->ExitPosY; 
-	      RootHit->ExitPosZ = TempHit->ExitPosZ;
-	      RootHit->MomX = TempHit->MomX;
-	      RootHit->MomY = TempHit->MomY; 
-	      RootHit->MomZ = TempHit->MomZ;
-	      RootHit->Energy = TempHit->Energy;
-	      RootHit->Time = TempHit->Time; 
+	      RootHit->HitPosX = TempHit->HitPosX/cm; 
+	      RootHit->HitPosY = TempHit->HitPosY/cm; 
+	      RootHit->HitPosZ = TempHit->HitPosZ/cm; 
+	      RootHit->ExitPosX = TempHit->ExitPosX/cm; 
+	      RootHit->ExitPosY = TempHit->ExitPosY/cm; 
+	      RootHit->ExitPosZ = TempHit->ExitPosZ/cm;
+	      RootHit->MomX = TempHit->MomX/GeV;
+	      RootHit->MomY = TempHit->MomY/GeV; 
+	      RootHit->MomZ = TempHit->MomZ/GeV;
+	      RootHit->Energy = TempHit->Energy/MeV;
+	      RootHit->Time = TempHit->Time/ns; 
 	      RootHit->Pname = TempHit->Pname;
-	      RootHit->Mass = TempHit->Mass;
+	      RootHit->Mass = TempHit->Mass/GeV;
 	    }
   	}
       else
