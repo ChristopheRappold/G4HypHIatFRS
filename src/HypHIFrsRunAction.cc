@@ -44,7 +44,7 @@
 HypHIFrsRunAction::HypHIFrsRunAction(const G4String& name, const std::vector<G4String>& nameSD_Det) : G4UserRunAction(),OutputFileName(name),NameDetectorsSD(nameSD_Det)
 { 
   // set printing event number per each event
-  G4RunManager::GetRunManager()->SetPrintProgress(1);     
+  G4RunManager::GetRunManager()->SetPrintProgress(100);     
 
   // Create analysis manager
   // The choice of analysis technology is done via selectin of a namespace

@@ -74,7 +74,7 @@ HypHIFrsStackingAction::ClassifyNewTrack(const G4Track * aTrack)
       // G4cout<<"Find Lambda :"<<aTrack->GetTrackID()<<G4endl;
       G4int mother_id = aTrack->GetTrackID();
       const G4DynamicParticle* tempParticle = aTrack->GetDynamicParticle(); 
-      tempParticle->DumpInfo();
+      //tempParticle->DumpInfo();
       // G4cout<<" Vtx Position"<<aTrack->GetPosition()<<G4endl;
       // G4cout<<" Time :"<<aTrack->GetProperTime()/ns<<" "<<" "<<aTrack->GetLocalTime()/ns<<" "<<aTrack->GetGlobalTime()/ns<<G4endl;
       
@@ -141,7 +141,7 @@ HypHIFrsStackingAction::ClassifyNewTrack(const G4Track * aTrack)
 	    { // particle is secondary
 	      //G4cout<<"Stacking: "<<aTrack->GetCreatorProcess()->GetProcessName()<<G4endl;
 	      const G4DynamicParticle* tempParticle = aTrack->GetDynamicParticle(); 
-	      tempParticle->DumpInfo();
+	      //tempParticle->DumpInfo();
 	      //G4cout<<" Vtx Position"<<aTrack->GetPosition()<<G4endl;
 	      //G4cout<<" Time :"<<aTrack->GetProperTime()/ns<<" "<<" "<<aTrack->GetLocalTime()/ns<<" "<<aTrack->GetGlobalTime()/ns<<G4endl;
 	      if(it_mother->second.mass_daughters.size()==0)
@@ -184,11 +184,11 @@ void HypHIFrsStackingAction::NewStage()
   // G4cout << "Number of Cerenkov photons produced in this event : "
   //        << fCerenkovCounter << G4endl;
 
-  G4cout<<" Decay in the event :"<<G4endl;
-  for(const auto& elem : mother_daugthersInfo)
-    {
-      elem.second.Print();
-    }
+  //G4cout<<" Decay in the event :"<<G4endl;
+  // for(const auto& elem : mother_daugthersInfo)
+  //   {
+  //     elem.second.Print();
+  //   }
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

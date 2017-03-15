@@ -439,7 +439,7 @@ G4ParticleDefinition* HypHIFrsPrimaryGeneratorAction::GetParticle(const G4String
 	{
 	  particle = pTable->FindParticle("H3L");
 	  //particle = pTableIon->GetIon(1,3,1,0.);
-	  particle->DumpTable();
+	  //particle->DumpTable();
 	  if(particle)
 	    return particle;
 	  else
@@ -454,7 +454,7 @@ G4ParticleDefinition* HypHIFrsPrimaryGeneratorAction::GetParticle(const G4String
 	{
 	  particle = pTable->FindParticle("H4L");
 	  //particle = pTableIon->GetIon(1,4,1,0.);
-	  particle->DumpTable();
+	  //particle->DumpTable();
 	  if(particle)
 	    return particle;
 	  else
@@ -469,7 +469,7 @@ G4ParticleDefinition* HypHIFrsPrimaryGeneratorAction::GetParticle(const G4String
 	{
 	  particle = pTable->FindParticle("He4L");
 	  //particle = pTableIon->GetIon(1,4,1,0.);
-	  particle->DumpTable();
+	  //particle->DumpTable();
 	  if(particle)
 	    return particle;
 	  else
@@ -484,7 +484,7 @@ G4ParticleDefinition* HypHIFrsPrimaryGeneratorAction::GetParticle(const G4String
 	{
 	  particle = pTable->FindParticle("He5L");
 	  //particle = pTableIon->GetIon(1,4,1,0.);
-	  particle->DumpTable();
+	  //particle->DumpTable();
 	  if(particle)
 	    return particle;
 	  else
@@ -499,7 +499,7 @@ G4ParticleDefinition* HypHIFrsPrimaryGeneratorAction::GetParticle(const G4String
 	{
 	  particle = pTable->FindParticle("nnL");
 	  //particle = pTableIon->GetIon(1,4,1,0.);
-	  particle->DumpTable();
+	  //particle->DumpTable();
 	  if(particle)
 	    return particle;
 	  else

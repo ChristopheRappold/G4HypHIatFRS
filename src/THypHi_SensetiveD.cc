@@ -58,8 +58,8 @@ G4bool THypHi_SD_UTracker::ProcessHits(G4Step*aStep, G4TouchableHistory*)
   G4String PhysName (aStep->GetPreStepPoint()->GetPhysicalVolume()->GetName());
   //G4cout<<" ->"<<PhysName<<G4endl;
   
-  if(PhysName!=SensitiveDetectorName)
-    return true;
+  // if(PhysName!=SensitiveDetectorName)
+  //   return true;
 
   int IdHit = -1;
   int CurrentTrack = aStep->GetTrack()->GetTrackID();
