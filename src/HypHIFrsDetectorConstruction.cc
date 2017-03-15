@@ -278,10 +278,19 @@ void HypHIFrsDetectorConstruction::ConstructSDandField()
   double SKS_field1_value = Par.Get_Geometry_SKSField1();
   double SKS_field2_value = Par.Get_Geometry_SKSField2();
 
-  G4cout<<" Sks field :"<<SKS_field1_value<<" "<<SKS_field2_value<<G4endl;
+  std::cout<<" Sks field :"<<SKS_field1_value<<" "<<SKS_field2_value<<std::endl;
 
   SksFieldinRoot->InitField(-SKS_field1_value/0.8016,true,SKS_field2_value);
   fieldMgr->SetDetectorField(SksFieldinRoot);
+
+  double pointTest[3] = {0.,0.,90.*cm};
+  double fieldTest[3] = {0.,0.,0.};
+  SksFieldinRoot->GetFieldValue(pointTest,fieldTest);
+  std::cout<<" Field 1 :"<<fieldTest[1]/tesla<<" T | ";
+  pointTest[2] = 300.*cm;
+  SksFieldinRoot->GetFieldValue(pointTest,fieldTest);
+  std::cout<<" Field 2 :"<<fieldTest[1]/tesla<<" T"<<std::endl;
+  
   
   G4Mag_UsualEqRhs* pMagFldEquation = new G4Mag_UsualEqRhs(SksFieldinRoot);
   //G4MagIntegratorStepper* fStepper = new G4NystromRK4( pMagFldEquation );
