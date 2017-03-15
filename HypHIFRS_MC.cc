@@ -144,6 +144,7 @@ int main(int argc,char** argv)
 
   if(Input_CIN)
     {
+      std::cout<<"InputCIN\n";
       std::string tmpstr;
       while(tmpstr != "HYPHI_MC_BEGINNING_OF_THE_EVENTS")
 	{
