@@ -89,6 +89,7 @@ void THypHi_ParCreator::Init(std::string InputFileName){
 	READ_ONE_PARAM_DIMENSION_float(CutValue_Default);
 	READ_ONE_PARAM_DIMENSION_float(CutValue_Target);
 	READ_ONE_PARAM_DIMENSION_float(CutValue_Plastic);
+	READ_ONE_PARAM_DIMENSION_float(CutLength_Track);
 	//
 	// HyperNuclei_* subsection
 	// H4L
@@ -132,6 +133,8 @@ void THypHi_ParCreator::Init(std::string InputFileName){
 	// SKS field 
 	READ_ONE_PARAM_float(Geometry_SKSField1);
 	READ_ONE_PARAM_float(Geometry_SKSField2);
+	READ_ONE_PARAM_DIMENSION_float(Geometry_BeamAngle);
+
 	// Target
 	READ_ONE_PARAM_string(Geometry_TargetMaterial);
 	READ_ONE_PARAM_DIMENSION_float(Geometry_TargetThickness);
@@ -310,6 +313,8 @@ void THypHi_ParCreator::SetDafaultValues(){
     SET_PARAMETER(CutValue_Default,1.0*mm);
     SET_PARAMETER(CutValue_Target,0.1*mm);
     SET_PARAMETER(CutValue_Plastic,0.01*mm);
+    SET_PARAMETER(CutLength_Track,5*m);
+
     /*--- HyperNuclei_* subsection ---*/
     // H4L
     SET_PARAMETER(HyperNuclei_H4L_T12,0.194*ns);

@@ -69,6 +69,11 @@
 #include "G4NystromRK4.hh"
 #include "G4SimpleHeum.hh"
 
+#include "G4UserLimits.hh"
+#include "G4Region.hh"
+#include "G4RegionStore.hh"
+#include "G4ProductionCuts.hh"
+
 
 #include "G4FieldManager.hh"
 #include "G4TransportationManager.hh"
@@ -194,12 +199,25 @@ G4VPhysicalVolume* HypHIFrsDetectorConstruction::Construct()
       UTracker->SetVisAttributes(VisDetectorSD);
     }  
 
+  SetupLV->SetUserLimits( new G4UserLimits(DBL_MAX,Par.Get_CutLength_Track(),10*s,0.,0.) );
+  
+  std::vector<double> cutsDet (4,Par.Get_CutValue_Plastic());
+  aDetectorRegion->SetProductionCuts(new G4ProductionCuts());
+  aDetectorRegion->GetProductionCuts()->SetProductionCuts(cutsDet);
+
+  std::vector<double> cutsTarget (4,Par.Get_CutValue_Target());
+  aTargetRegion->SetProductionCuts(new G4ProductionCuts());
+  aTargetRegion->GetProductionCuts()->SetProductionCuts(cutsTarget);
+
+  
   NameDetectorsSD = NameSD;
   
   // Visualization attributes
   //
   G4LogicalVolume* worldLV = world->GetLogicalVolume();
   worldLV->SetVisAttributes (G4VisAttributes::Invisible);
+
+  worldLV->SetUserLimits( new G4UserLimits(DBL_MAX,2*m,10*s,0.,0.) );  
   
   if(MagFieldLV)
     MagFieldLV->SetVisAttributes(G4VisAttributes::Invisible);

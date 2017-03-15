@@ -99,7 +99,8 @@ void HypHIFrsPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
   G4double pos_y = Par.Get_Geometry_TargetPosY();
   G4double pos_z = Par.Get_Geometry_TargetPosZ();
   G4double sigma = Par.Get_Beam_SpotSizeSigma();
-
+  G4double beamAngle = Par.Get_Geometry_BeamAngle();
+  
   bool not_acc_position = true;
   G4double ofpos_x,ofpos_y,ofpos_z;
   

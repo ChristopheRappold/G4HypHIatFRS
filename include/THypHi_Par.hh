@@ -1,3 +1,4 @@
+
 #ifndef THypHi_Par_header
 #define THypHi_Par_header 1
 
@@ -34,6 +35,8 @@ class THypHi_Par:public TNamed{
     THypHi_DEF_PAR(Double_t,CutValue_Default);
     THypHi_DEF_PAR(Double_t,CutValue_Target);
     THypHi_DEF_PAR(Double_t,CutValue_Plastic);
+    THypHi_DEF_PAR(Double_t,CutLength_Track);
+  
     /*--- HyperNuclei_* subsection ---*/
     // H4L
     THypHi_DEF_PAR(Double_t,HyperNuclei_H4L_T12);
@@ -76,6 +79,7 @@ class THypHi_Par:public TNamed{
     // SKS field  
     THypHi_DEF_PAR(Double_t,Geometry_SKSField1);
     THypHi_DEF_PAR(Double_t,Geometry_SKSField2);
+    THypHi_DEF_PAR(Double_t,Geometry_BeamAngle);
 
     // Target
     THypHi_DEF_PAR(std::string,Geometry_TargetMaterial);
