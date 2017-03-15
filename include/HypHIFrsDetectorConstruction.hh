@@ -32,10 +32,12 @@
 #define HypHIFrsDetectorConstruction_h 1
 
 #include "HypHIVDetectorConstruction.hh"
+
 #include "globals.hh"
 #include "HypHIFrsMagneticField.hh"
 #include "THypHi_Par.hh"
 
+#include "G4ThreeVector.hh"
 
 class G4VPhysicalVolume;
 //class G4GlobalMagFieldMessenger;
@@ -74,6 +76,8 @@ private:
   //
   void DefineMaterials();
   G4VPhysicalVolume* DefineVolumes();
+
+  G4VPhysicalVolume* FindVolPhys(const G4String& name);
   //G4LogicalVolume* FindVolume(const G4String& name);  
   // data members
   //
@@ -81,7 +85,7 @@ private:
   // magnetic field messenger
        
   G4bool  fCheckOverlaps; // option to activate checking of volumes overlaps
-  
+  G4ThreeVector TargetTrans;
   //const THypHi_Par& Par;
   
 };

@@ -48,6 +48,7 @@
 #include "G4VisAttributes.hh"
 #include "G4Colour.hh"
 
+#include "G4NistManager.hh"
 #include "G4PhysicalConstants.hh"
 
 // VGM demo
@@ -178,13 +179,29 @@ G4VPhysicalVolume* HypHIFrsDetectorConstruction::Construct()
   G4LogicalVolume* SecondMagLV = FindVolume("SecondMag");
   G4LogicalVolume* SetupLV = FindVolume("Setup");
   G4LogicalVolume* IronQuadLV = FindVolume("IronQuad");
-
+  
   G4Region* aTargetRegion = new G4Region("TargetRegion");
 
   G4LogicalVolume* TargetLV = FindVolume("Target");
+  G4VPhysicalVolume* Target_phys = FindVolPhys("Target");
+
+  TargetTrans = Target_phys->GetObjectTranslation();
+  G4VPhysicalVolume* Setup_phys = FindVolPhys("Setup");
+  Setup_phys->SetTranslation(-TargetTrans);
+
+  
+  G4NistManager* materialMgr = G4NistManager::Instance();
+  G4Material* Vacuum = materialMgr->FindOrBuildMaterial("G4_Galactic");
+  TargetLV->UpdateMaterial(Vacuum);
+  
   TargetLV->SetRegion(aTargetRegion);
   aTargetRegion->AddRootLogicalVolume(TargetLV);
 
+  
+  
+
+
+  
   G4Region* aDetectorRegion = new G4Region("DetectorRegion");
  
   std::vector<G4String> NameSD = {"START","TR0","TR1","DC1","TR2","DC2","DC3","TOFP","DC2STOP","STOP"};
@@ -328,3 +345,9 @@ void HypHIFrsDetectorConstruction::ConstructSDandField()
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+G4VPhysicalVolume* HypHIFrsDetectorConstruction::FindVolPhys(const G4String& name)
+{
+  G4PhysicalVolumeStore* pvStore = G4PhysicalVolumeStore::GetInstance();
+  return pvStore->GetVolume(name);
+}
