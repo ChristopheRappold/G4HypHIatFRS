@@ -124,7 +124,7 @@ ROOT_GENERATE_DICTIONARY(
 
 set(SourceLib ${PROJECT_SOURCE_DIR}/src/THypHi_Par.cc ${PROJECT_SOURCE_DIR}/src/THypHi_Event.cc ${PROJECT_SOURCE_DIR}/src/THypHi_UTrackerHit.cc)
 
-add_library(${library_name} ${SourceLib} ${CMAKE_SHARED_LIBRARY_PREFIX}${library_name}_dict.cxx ${headers})
+add_library(${library_name} SHARED ${SourceLib} ${CMAKE_SHARED_LIBRARY_PREFIX}${library_name}_dict.cxx ${headers})
 target_link_libraries(${library_name} ${VMC_LIBRARIES})
 
 
