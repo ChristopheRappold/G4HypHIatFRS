@@ -38,6 +38,7 @@
 #include "TFile.h"
 #include "TTree.h"
 #include "TClonesArray.h"
+#include "THypHi_Par.hh"
 
 #include "THypHi_Event.hh"
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -71,7 +72,7 @@ public:
 
   void Reset();
   void Close();
-  void InitTree(const std::vector<G4String>& nameDet);
+  void InitTree(const std::vector<G4String>& nameDet, const THypHi_Par&);
 
 private:
 

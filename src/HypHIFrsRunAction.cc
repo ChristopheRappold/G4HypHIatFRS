@@ -41,7 +41,7 @@
 #include "THypHi_SensetiveD.hh"
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-HypHIFrsRunAction::HypHIFrsRunAction(const G4String& name, const std::vector<G4String>& nameSD_Det) : G4UserRunAction(),OutputFileName(name),NameDetectorsSD(nameSD_Det)
+HypHIFrsRunAction::HypHIFrsRunAction(const G4String& name, const std::vector<G4String>& nameSD_Det, const THypHi_Par& Para_) : G4UserRunAction(),OutputFileName(name),NameDetectorsSD(nameSD_Det),Par(Para_)
 { 
   // set printing event number per each event
   G4RunManager::GetRunManager()->SetPrintProgress(100);     
@@ -126,7 +126,7 @@ void HypHIFrsRunAction::BeginOfRunAction(const G4Run*)
   HypHIFrsRunData* hyprun = dynamic_cast<HypHIFrsRunData*>(G4RunManager::GetRunManager()->GetNonConstCurrentRun());
   
   //const HypHIFrsRunData* hyprun = dynamic_cast<const HypHIFrsRunData*>(run);
-  hyprun->InitTree(NameDetectorsSD);
+  hyprun->InitTree(NameDetectorsSD,Par);
 
   //inform the runManager to save random number seed
   //G4RunManager::GetRunManager()->SetRandomNumberStore(true);

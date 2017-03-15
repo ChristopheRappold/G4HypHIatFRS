@@ -41,6 +41,8 @@
 
 #include "HypHIFrsStackingAction.hh"
 
+#include "THypHi_Par.hh"
+
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 HypHIFrsRunData::HypHIFrsRunData(const G4String& name) : G4Run(),namefile(name),fileOut(nullptr),Tree(nullptr),LookCheckFile(false),LookCheckTree(false),CloseDone(false)
@@ -71,7 +73,7 @@ void HypHIFrsRunData::Close()
     }
 }
 
-void HypHIFrsRunData::InitTree(const std::vector<G4String>& nameDet)
+void HypHIFrsRunData::InitTree(const std::vector<G4String>& nameDet, const THypHi_Par& Par)
 {
   if(LookCheckTree==false)
     {
@@ -81,11 +83,21 @@ void HypHIFrsRunData::InitTree(const std::vector<G4String>& nameDet)
 	  LookCheckFile = true;
 	}
       
+      std::map<std::string, double> parameterToFile;
+      parameterToFile.insert(std::make_pair("Target_Size",Par.Get_Geometry_TargetThickness()/cm));
+      parameterToFile.insert(std::make_pair("Target_PosX",Par.Get_Geometry_TargetPosX()/cm));
+      parameterToFile.insert(std::make_pair("Target_PosY",Par.Get_Geometry_TargetPosY()/cm));
+      parameterToFile.insert(std::make_pair("Target_PosZ",Par.Get_Geometry_TargetPosZ()/cm));
+      parameterToFile.insert(std::make_pair("Field_SKS1_Bz",Par.Get_Geometry_SKSField1()/tesla));
+      parameterToFile.insert(std::make_pair("Field_SKS2_Bz",Par.Get_Geometry_SKSField2()/tesla));
+      
       fileOut->cd();
+      fileOut->WriteObjectAny(&nameDet, "std::vector<std::string>", "nameDet");
+      fileOut->WriteObjectAny(&parameterToFile, "std::map<std::string,double>", "simParameters");
       Tree = new TTree("G4Tree","Geant4 Tree");
 
       fEvent = new THypHi_Event; 
-      Tree->Branch("HypHi_Event",&fEvent);
+      Tree->Branch("THypHi_Event",&fEvent,3200,2);
       for(auto& nameBranch : nameDet)
 	{
 	  TClonesArray* SubEvent_UTracker = new TClonesArray("UTrackerHit",20);

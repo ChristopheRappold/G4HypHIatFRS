@@ -37,6 +37,7 @@
 #include "TFile.h"
 #include "TTree.h"
 #include "TH1F.h"
+#include "THypHi_Par.hh"
 
 class G4Run;
 
@@ -61,7 +62,7 @@ class G4Run;
 class HypHIFrsRunAction : public G4UserRunAction
 {
 public:
-  HypHIFrsRunAction(const G4String& name, const std::vector<G4String>& nameD);
+  HypHIFrsRunAction(const G4String& name, const std::vector<G4String>& nameD, const THypHi_Par&);
   virtual ~HypHIFrsRunAction();
   
   virtual void BeginOfRunAction(const G4Run*);
@@ -75,6 +76,7 @@ public:
 private :
   const G4String& OutputFileName;
   const std::vector<G4String>& NameDetectorsSD;
+  const THypHi_Par& Par;
 
   // TFile* OutputFile;
   // TTree* OutTree;

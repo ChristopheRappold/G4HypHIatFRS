@@ -53,7 +53,7 @@ HypHIFrsActionInitialization::~HypHIFrsActionInitialization()
 
 void HypHIFrsActionInitialization::BuildForMaster() const
 {
-  SetUserAction(new HypHIFrsRunAction(OutputFile, fGeoController->GetNameDetectors()));
+  SetUserAction(new HypHIFrsRunAction(OutputFile, fGeoController->GetNameDetectors(),Par));
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -62,7 +62,7 @@ void HypHIFrsActionInitialization::Build() const
 {
   SetUserAction(new HypHIFrsPrimaryGeneratorAction(Par,InputCIN));
 
-  SetUserAction(new HypHIFrsRunAction(OutputFile, fGeoController->GetNameDetectors()));
+  SetUserAction(new HypHIFrsRunAction(OutputFile, fGeoController->GetNameDetectors(),Par));
   
   HypHIFrsEventAction* eventAction = new HypHIFrsEventAction( fGeoController->GetNameDetectors());
   SetUserAction(eventAction);
