@@ -1,31 +1,31 @@
 # The parameters input file for HypHiMC programm
 # please use "#" as a beginning of the comment line
 #--------------------------------------------------------------------
-#PhysicsListName NewHypHIFrsList
+PhysicsListName NewHypHIFrsList
 #PhysicsListName OldHypHIList
-PhysicsListName G4Default_FTFP_BERT
+#PhysicsListName G4Default_FTFP_BERT
 #--------------------------------------------------------------------
 #Beam_* section
-#Beam_Type alpha
+#Beam_Type Z3A6
 #Beam_KineticEnergy 8.0 GeV
 Beam_Type nnL
 #Beam_Type proton
-#Beam_KineticEnergy 1.7 GeV
-Beam_KineticEnergy 1.90 GeV 
+Beam_KineticEnergy 2.0 GeV
+#Beam_KineticEnergy 18.0 GeV 
 Beam_SpotSizeSigma 1.0 cm
-Beam_MomentumDirectionX 0.0
+Beam_MomentumDirectionX -0.01745
 Beam_MomentumDirectionY 0.0
-Beam_MomentumDirectionZ 1.0
-RandomizePos 1
+Beam_MomentumDirectionZ 0.99985
+#RandomizePos 1
 #RandomizeEnergy 1
-RandomizeDirection 1
+#RandomizeDirection 1
 #--------------------------------------------------------------------
 # CutValue_* section
 CutValue_Default 10.00 mm
 CutValue_Target  10.10 mm
 #CutValue_Plastic 0.10 mm
 CutValue_Plastic 50.00 mm
-
+CutLength_Track 3.0 m
 #--------------------------------------------------------------------
 # HyperNuclei_* section
 HyperNuclei_H4L_T12      0.194 ns
@@ -68,8 +68,9 @@ Geometry_WorldDimX     5 m
 Geometry_WorldDimY     5 m
 Geometry_WorldDimZ    10 m
 # SKS magnet field
-Geometry_SKSField1 0.8 
-Geometry_SKSField2 22
+Geometry_SKSField1 0.48 
+Geometry_SKSField2 20
+Geometry_BeamAngle -2 degree
 #Geometry_SKSField2 14.8
 
 # Target ............................................................
@@ -77,10 +78,13 @@ Geometry_TargetMaterial C
 Geometry_TargetThickness 4. cm
 Geometry_TargetHeight    4. cm
 Geometry_TargetLength    4. cm
-Geometry_TargetPosX      5.  cm
-Geometry_TargetPosY      0.0  cm
-Geometry_TargetPosZ      47.4  cm #%<---pre
-#Geometry_TargetPosZ     -4.0  cm #08Oct2012
+#Geometry_TargetPosX      -5.0  cm
+#Geometry_TargetPosY      0.0  cm
+#Geometry_TargetPosZ      140.0  cm
+#Geometry_TargetPosX      0.0  cm
+#Geometry_TargetPosY      0.0  cm
+#Geometry_TargetPosZ      0.0  cm
+
 # Fiber detectors ...................................................
 Geometry_Fibers_Nlayers         4
 Geometry_Fibers_PlainsOfset     0.5   cm  # distance between layers of X and Y plains (do not include detector thickness!!!)
