@@ -224,6 +224,7 @@ void HypHIFrsPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 	      fParticleGun->SetParticleDefinition(particle);
 	      // direction
 	      G4ThreeVector mom(Px,Py,Pz);
+	      mom.rotateY(beamAngle);
 	      // 		std::cout<<energy<<" "<<Px<<" "<<Py<<" "<<Pz<<std::endl;
 	      // 		std::cout<<mom.x()<<" "<<mom.y()<<" "<<mom.z()<<std::endl;
 	      
